@@ -31,17 +31,6 @@ const courses = [
           },
         ],
       },
-      // Future chapters:
-      // { slug: 'ch03-motion-2d', number: 3, title: 'Motion in Two Dimensions', experiments: [...] },
-      // { slug: 'ch04-newtons-laws', number: 4, title: 'Newton\'s Laws', experiments: [...] },
-      // { slug: 'ch05-applications', number: 5, title: 'Applications of Newton\'s Laws', experiments: [...] },
-      // { slug: 'ch06-work-energy', number: 6, title: 'Work and Kinetic Energy', experiments: [...] },
-      // { slug: 'ch07-conservation', number: 7, title: 'Conservation of Energy', experiments: [...] },
-      // { slug: 'ch08-momentum', number: 8, title: 'Systems of Particles and Momentum', experiments: [...] },
-      // { slug: 'ch09-rotation', number: 9, title: 'Rotation', experiments: [...] },
-      // { slug: 'ch10-angular-momentum', number: 10, title: 'Angular Momentum', experiments: [...] },
-      // { slug: 'ch14-oscillations', number: 14, title: 'Oscillations', experiments: [...] },
-      // { slug: 'ch15-waves', number: 15, title: 'Traveling Waves', experiments: [...] },
     ],
   },
   {
@@ -50,8 +39,49 @@ const courses = [
     subtitle: 'General Physics II — Electricity & Magnetism',
     description: 'Electric fields, circuits, magnetism, optics, and modern physics.',
     chapters: [
-      // The existing diffraction app will migrate here:
-      // { slug: 'ch33-diffraction', number: 33, title: 'Interference and Diffraction', experiments: [...] },
+      {
+        slug: 'ch33-diffraction',
+        number: 33,
+        title: 'Interference and Diffraction',
+        experiments: [
+          {
+            slug: 'single-slit',
+            title: 'Single-Slit Diffraction',
+            description: 'Fraunhofer diffraction pattern from a single slit — intensity profile, screen strip, and minima annotations.',
+            component: lazy(() => import('./courses/sp212/ch33-diffraction/SingleSlit')),
+          },
+          {
+            slug: 'circular-aperture',
+            title: 'Circular Aperture (Airy Pattern)',
+            description: 'Diffraction through a circular aperture — radial intensity profile and 2D Airy disk visualization.',
+            component: lazy(() => import('./courses/sp212/ch33-diffraction/CircularAperture')),
+          },
+          {
+            slug: 'rayleigh',
+            title: 'Rayleigh Criterion',
+            description: 'Two-source resolution limit — overlapping Airy patterns with resolved/unresolved status indicator.',
+            component: lazy(() => import('./courses/sp212/ch33-diffraction/Rayleigh')),
+          },
+          {
+            slug: 'comparison',
+            title: 'Double vs. Single Slit',
+            description: 'Side-by-side interference, envelope, and combined patterns with missing order annotations.',
+            component: lazy(() => import('./courses/sp212/ch33-diffraction/Comparison')),
+          },
+          {
+            slug: 'sandbox',
+            title: 'N-Slit Sandbox',
+            description: 'Explore the evolution from single slit (N=1) through double slit to diffraction grating (N=20).',
+            component: lazy(() => import('./courses/sp212/ch33-diffraction/Sandbox')),
+          },
+          {
+            slug: 'phasors',
+            title: 'Phasor Diagrams',
+            description: 'Dynamic vector addition diagrams showing how phasors determine intensity for single-slit and N-slit patterns.',
+            component: lazy(() => import('./courses/sp212/ch33-diffraction/Phasors')),
+          },
+        ],
+      },
     ],
   },
 ];
