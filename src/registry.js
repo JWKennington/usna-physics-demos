@@ -17,6 +17,14 @@ const courses = [
     title: 'SP211',
     subtitle: 'General Physics I — Mechanics',
     description: 'Kinematics, Newton\'s laws, energy, momentum, rotation, oscillations, and waves.',
+    // Topic groups — curated subsets of chapters (e.g. "this week's topics")
+    // Each group appears as a filter pill on the course index page.
+    // URL: /#/sp211?group=week1
+    groups: [
+      // Example (uncomment and adjust when planning the semester):
+      // { slug: 'week1', label: 'Week 1', description: 'Kinematics review', chapterSlugs: ['ch02-motion-1d'] },
+      // { slug: 'week2', label: 'Week 2', description: 'Newton\'s laws', chapterSlugs: ['ch04-newtons-laws', 'ch05-applications'] },
+    ],
     chapters: [
       {
         slug: 'ch02-motion-1d',

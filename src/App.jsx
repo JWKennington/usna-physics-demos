@@ -3,6 +3,7 @@ import { Suspense } from 'react';
 import Layout from './shell/Layout';
 import CoursePicker from './shell/CoursePicker';
 import CoursePage from './shell/CoursePage';
+import ChapterPage from './shell/ChapterPage';
 import ExperimentPage from './shell/ExperimentPage';
 
 export default function App() {
@@ -12,6 +13,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<CoursePicker />} />
           <Route path="/:courseId" element={<CoursePage />} />
+          <Route path="/:courseId/:chapterSlug" element={<ChapterPage />} />
           <Route path="/:courseId/:chapterSlug/:experimentSlug" element={<ExperimentPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

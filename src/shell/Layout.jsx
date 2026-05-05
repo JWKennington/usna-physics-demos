@@ -100,7 +100,7 @@ function Breadcrumb() {
       if (parts[1]) {
         const chapter = course.chapters.find((ch) => ch.slug === parts[1]);
         if (chapter) {
-          crumbs.push({ label: `Ch. ${chapter.number}`, to: null });
+          crumbs.push({ label: `Ch. ${chapter.number}: ${chapter.title}`, to: `/${course.id}/${chapter.slug}` });
           if (parts[2]) {
             const exp = chapter.experiments.find((e) => e.slug === parts[2]);
             if (exp) crumbs.push({ label: exp.title, to: null });
