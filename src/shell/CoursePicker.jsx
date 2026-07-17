@@ -19,9 +19,9 @@ export default function CoursePicker() {
         </p>
       </div>
 
-      {/* Featured: the Day-1 Season Preview performance (separate from chapter nav) */}
+      {/* Featured: the Day-1 Semester Preview performance (separate from chapter nav) */}
       <Link
-        to="/sp211/season-preview"
+        to="/sp211/semester-preview"
         className="group block mb-6 rounded-lg p-6 bg-usna-navy border border-usna-gold/40 hover:border-usna-gold transition-colors"
       >
         <div className="flex items-center gap-4">
@@ -29,7 +29,7 @@ export default function CoursePicker() {
             ▶
           </span>
           <div>
-            <h2 className="text-xl font-semibold text-usna-gold">SP211 Season Preview</h2>
+            <h2 className="text-xl font-semibold text-usna-gold">SP211 Semester Preview</h2>
             <p className="text-[#F0ECE3] text-sm">
               A full-screen, live-demo tour of the semester ahead.
             </p>

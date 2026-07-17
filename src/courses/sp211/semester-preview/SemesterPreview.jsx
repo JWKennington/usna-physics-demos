@@ -10,23 +10,23 @@ import DopplerWavefronts from './demos/DopplerWavefronts';
 import StandingWaves from './demos/StandingWaves';
 
 /**
- * SeasonPreview — the Day-1 (M1) "semester in four acts" performance.
+ * SemesterPreview — the Day-1 (M1) "semester in four acts" performance.
  *
  * A full-screen, keyboard-driven deck that lives OUTSIDE the usual course/chapter
- * chrome (its own route, /#/sp211/season-preview). Each act follows the plan's
- * fixed rhythm — one live visual, one naval mission, one frontier "wow" — then a
+ * chrome (its own route, /#/sp211/semester-preview). Each act follows the plan's
+ * fixed rhythm — one live visual, one naval mission, one frontier hook — then a
  * hard cut. Live experiments are embedded directly; video/audio are local files.
  *
  * Keys:  →/Space next · ← prev · F fullscreen · N speaker notes · Esc exit
  */
-const MEDIA = `${import.meta.env.BASE_URL}media/season-preview/`;
+const MEDIA = `${import.meta.env.BASE_URL}media/semester-preview/`;
 
 const GOLD = '#C5B783';
 const NAVY = '#00205B';
 const TEXT = '#F0ECE3';
 const MUTED = '#8B8C8E';
 
-export default function SeasonPreview() {
+export default function SemesterPreview() {
   const navigate = useNavigate();
   const [params] = useSearchParams();
   const n = SLIDES.length;
@@ -118,10 +118,18 @@ function Eyebrow({ act, unit, test }) {
   );
 }
 
-function Beat({ tag, children }) {
+function Beat({ tag, community, children }) {
   return (
     <div className="rounded-xl p-4" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(197,183,131,0.25)' }}>
-      <div className="font-mono text-[11px] uppercase tracking-widest mb-1" style={{ color: GOLD }}>{tag}</div>
+      <div className="flex items-center gap-2 mb-1 flex-wrap">
+        <span className="font-mono text-[11px] uppercase tracking-widest" style={{ color: GOLD }}>{tag}</span>
+        {community && (
+          <span className="text-[10px] font-semibold uppercase tracking-wide px-2 py-0.5 rounded-full"
+                style={{ background: 'rgba(197,183,131,0.16)', color: GOLD, border: '1px solid rgba(197,183,131,0.35)' }}>
+            {community}
+          </span>
+        )}
+      </div>
       <div className="text-[15px] leading-snug" style={{ color: TEXT }}>{children}</div>
     </div>
   );
@@ -170,7 +178,7 @@ const SLIDES = [
       <div className="flex-1 flex flex-col items-center justify-center text-center">
         <img src={`${import.meta.env.BASE_URL}usna-logo-small.png`} alt="USNA" className="h-24 mb-8 opacity-90" />
         <div className="font-mono tracking-[0.35em] text-sm mb-4" style={{ color: GOLD }}>SP211 · GENERAL PHYSICS I</div>
-        <h1 className="text-6xl font-extrabold mb-4" style={{ color: TEXT }}>Season Preview</h1>
+        <h1 className="text-6xl font-extrabold mb-4" style={{ color: TEXT }}>Semester Preview</h1>
         <p className="text-2xl mb-10" style={{ color: MUTED }}>Four acts. Fifteen weeks. One toolkit.</p>
         <p className="max-w-2xl text-lg leading-relaxed" style={{ color: TEXT }}>
           Everything you are about to see is on the syllabus. The homework teaches you to compute it,
@@ -190,14 +198,14 @@ const SLIDES = [
         title="Things that fly"
         demo={<ProjectileArc />}
         aside={<>
-          <Video src="x47b-catapult.mp4" ambient caption="X-47B — first autonomous carrier catapult launch (US Navy)" />
-          <Beat tag="Mission">
+          <Video src="fa18-catapult.mp4" ambient caption="F/A-18 catapult launch from a carrier (US Navy)" />
+          <Beat tag="Mission" community="Aviation">
             The catapult takes an aircraft from 0 to <b>165&nbsp;kt in ~2&nbsp;s</b> — about <b>3&nbsp;g</b>.
-            You will compute that acceleration in week 3 and determine whether a pilot can withstand it.
+            You will compute that acceleration in week 3 and decide whether a pilot can withstand it.
           </Beat>
-          <Beat tag="Application">
-            The same range equation is a firing solution: naval gunfire reaches a target two ways, a high arc
-            and a low one — the complementary angles on screen.
+          <Beat tag="Application" community="Marine Corps">
+            Marine artillery and naval surface fire support solve this same trajectory: a high-angle and a
+            low-angle firing solution reach the same target — the complementary angles on screen.
           </Beat>
         </>}
         stat="Drag the launch angle — the dashed complementary angle always lands at the same range."
@@ -219,9 +227,9 @@ const SLIDES = [
             Hammer and feather, released together, land together. With no air, everything falls at the same
             rate: the vacuum approximation we rely on all semester, made real.
           </Beat>
-          <Beat tag="Application">
-            A HALO jumper levels off near <b>~55&nbsp;m/s</b> terminal speed; the same drag law sets a
-            parachute's descent and a falling store's path.
+          <Beat tag="Application" community="Special Warfare">
+            A SEAL on a HALO insertion levels off near <b>~55&nbsp;m/s</b> terminal speed; the same drag law
+            sets the free-fall and canopy phases, and a parachute-retarded store's descent.
           </Beat>
         </>}
         stat="Turn air resistance to zero and the two land together — that is the Moon."
@@ -238,12 +246,12 @@ const SLIDES = [
         title="Collisions & impulse"
         demo={<CollisionCarts />}
         aside={<>
-          <Video src="x47b-arrested-landing.mp4" ambient caption="X-47B — first carrier arrested landing (US Navy)" />
-          <Beat tag="Mission">
+          <Video src="x47b-arrested-landing.mp4" ambient caption="Carrier arrested landing — the trap (US Navy)" />
+          <Beat tag="Mission" community="Aviation">
             The arresting gear stops a 25-ton jet at ~130&nbsp;kt in about <b>2&nbsp;s and ~100&nbsp;m</b> —
             an impulse problem, order <b>~50&nbsp;MJ</b> of energy, and you will do it.
           </Beat>
-          <Beat tag="Application">
+          <Beat tag="Application" community="Surface Warfare">
             A 5-inch gun's recoil is the same momentum bookkeeping: the shell leaves fast, the ship barely
             moves because it is thousands of times heavier.
           </Beat>
@@ -262,11 +270,12 @@ const SLIDES = [
         title="Momentum, at a distance"
         demo={<GravityAssist />}
         aside={<>
+          <Video src="lucy-gravity-assist.mp4" ambient caption="Gravity-assist flyby trajectory (NASA / Lucy mission)" />
           <Beat tag="Frontier — gravity assist">
             Voyager gained speed from Jupiter in an encounter with <i>no contact</i> — the same conservation
             law as two carts, with gravity as the spring. Vary the flyby distance to see the boost grow.
           </Beat>
-          <Beat tag="Application">
+          <Beat tag="Application" community="Space">
             Every outer-planet mission — Voyager, Cassini, New Horizons — buys speed this way instead of
             carrying the fuel for it.
           </Beat>
@@ -285,7 +294,8 @@ const SLIDES = [
         title="Spin"
         demo={<NeutronStarSpin />}
         aside={<>
-          <Beat tag="Mission">
+          <Video src="pulsar-spin.mp4" ambient caption="A millisecond pulsar spinning ~hundreds of times a second (NASA)" />
+          <Beat tag="Mission" community="Submarine">
             A gyroscope resists being tilted, and that resistance holds a heading with no external reference:
             gyrocompass and inertial navigation are how a submarine runs blind.
           </Beat>
@@ -308,9 +318,10 @@ const SLIDES = [
         title="Gravity & orbits"
         demo={<OrbitSim />}
         aside={<>
-          <Beat tag="Mission">
-            GPS satellites hold precise orbits set by this exact balance of speed and gravity; get the speed
-            wrong and the constellation drifts.
+          <Video src="earth-orbit.mp4" ambient caption="Earth from low orbit (NASA, from the ISS)" />
+          <Beat tag="Mission" community="Information Warfare">
+            GPS satellites hold precise orbits set by this exact balance of speed and gravity. The space and
+            information-warfare cadres depend on them — and plan for an adversary trying to deny them.
           </Beat>
           <Beat tag="Frontier — escape">
             One number decides everything: below <b>√2 × circular speed</b> the orbit is bound, above it the
@@ -331,13 +342,14 @@ const SLIDES = [
         title="Doppler & sound"
         demo={<DopplerWavefronts />}
         aside={<>
-          <Beat tag="Mission">
+          <Video src="f14-vapor-cone.mp4" ambient caption="F-14 transonic flyby — vapor at the shock front (US Navy)" />
+          <Beat tag="Mission" community="Submarine">
             Sonar is how the submarine force sees. Doppler sonar reads a target's speed straight off the
-            frequency shift; push the source past Mach 1 for the bow shock.
+            frequency shift; push the source past Mach 1 for the shock cone in the clip.
           </Beat>
-          <Beat tag="Application">
-            The same shift drives weather and police radar, and a submarine corrects its fire-control
-            solution for the motion of its own hull.
+          <Beat tag="Application" community="Information Warfare">
+            The same shift drives radar and electronic warfare: a cryptologic warfare officer reads a
+            contact's motion and intent out of these frequency signatures.
           </Beat>
         </>}
         stat="Below Mach 1 the pitch rises ahead and drops behind; past Mach 1 the crests form a shock cone."
@@ -354,11 +366,12 @@ const SLIDES = [
         title="Waves that carry"
         demo={<StandingWaves />}
         aside={<>
-          <Beat tag="Application">
-            Every instrument and every ship's hull has resonant modes like these; engineers tune structures
-            to keep the dangerous ones away from the frequencies they will meet.
+          <Video src="bbh-merger.mp4" ambient caption="Two black holes spiraling in and merging (NASA simulation)" />
+          <Beat tag="Application" community="Nuclear / Engineering">
+            Every ship's hull, turbine, and reactor structure has resonant modes like these; naval engineers
+            design them so the dangerous frequencies stay clear of the ones they meet at sea.
           </Beat>
-          <Beat tag="Frontier — gravitational waves">
+          <Beat tag="Frontier — gravitational waves" community="Space">
             The same standing-wave math, scaled to 4-km laser interferometers, detected two black holes
             colliding <b> 1.3 billion light-years</b> away. That is my research field.
           </Beat>

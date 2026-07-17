@@ -7,14 +7,14 @@ import ChapterPage from './shell/ChapterPage';
 import ExperimentPage from './shell/ExperimentPage';
 
 // Full-screen presentation deck — its own route, outside the shell chrome.
-const SeasonPreview = lazy(() => import('./courses/sp211/season-preview/SeasonPreview'));
+const SemesterPreview = lazy(() => import('./courses/sp211/semester-preview/SemesterPreview'));
 
 export default function App() {
   return (
     <Suspense fallback={<LoadingSpinner />}>
       <Routes>
         {/* Full-screen route: no nav/breadcrumb/footer */}
-        <Route path="/sp211/season-preview" element={<SeasonPreview />} />
+        <Route path="/sp211/semester-preview" element={<SemesterPreview />} />
         {/* Everything else runs inside the standard shell */}
         <Route path="/*" element={<Shell />} />
       </Routes>

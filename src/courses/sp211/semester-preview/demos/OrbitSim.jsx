@@ -27,7 +27,8 @@ const GM = 400000;        // gravitational parameter (arbitrary units)
 const R0 = 160;           // perigee radius (px) — launch point right of center
 const SOFT = 6;           // softening length (px) — guards the singularity
 const DT = 1 / 480;       // integration step (s)
-const SUBSTEPS = 10;      // substeps per drawn frame for stable close approaches
+const SUBSTEPS = 36;      // substeps per drawn frame — also sets the time rate
+                         // (more substeps = accurate integration AND faster orbits)
 const TRAIL_MAX = 900;    // number of trail points kept
 
 // Circular speed at r0, and escape speed. v_c = sqrt(GM/r0); v_esc = sqrt(2) v_c.

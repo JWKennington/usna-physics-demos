@@ -13,7 +13,7 @@ import { setupCanvas } from '@shared/lib/canvas';
  * system. Motion advances off an accumulated, bounded-step sim clock (mirrors
  * DopplerWavefronts) rather than raw wall-clock timestamps.
  */
-const F1 = 0.55;   // fundamental temporal frequency (Hz of the sim clock)
+const F1 = 0.25;   // fundamental temporal frequency (Hz of the sim clock) — slow enough to watch
 const SAMPLES = 200; // x-samples across the string for the live waveform
 
 export default function StandingWaves({ compact = false }) {
