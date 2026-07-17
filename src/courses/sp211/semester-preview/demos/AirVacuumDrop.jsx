@@ -200,7 +200,7 @@ export default function AirVacuumDrop({ compact = false }) {
         />
         {!compact && (
           <p className="text-usna-muted text-xs mt-2">
-            Turn air resistance to zero and they land together &mdash; that is the Moon.
+            Turn air resistance to zero and they land together. That is the Moon.
           </p>
         )}
       </div>

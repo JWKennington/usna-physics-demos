@@ -1,0 +1,29 @@
+# Semester Preview media
+
+Source manifest and regeneration for the media used by the SP211 Semester Preview
+deck (`src/courses/sp211/semester-preview/`). The normalized, web-ready files the
+app ships live in `public/media/semester-preview/` and are committed. The raw
+sources are **not** committed; `build-media.sh` re-downloads and normalizes them.
+
+```bash
+brew install ffmpeg          # once
+bash media-src/semester-preview/build-media.sh
+```
+
+## Manifest
+
+| Act | Web file | Source | License | Trim |
+|---|---|---|---|---|
+| I-a | `fa18-catapult.mp4` | Commons: *F-18 taking off from Nimitz* | US Navy, public domain | 21–25 s (the launch) |
+| I-b | `apollo15-hammer-feather.mp4` | Commons: *Apollo 15 feather and hammer drop* | NASA, public domain | full (keeps audio) |
+| II-a | `x47b-arrested-landing.mp4` | Commons: *X-47B … Arrested Landing* | US Navy, public domain | 19–35 s (the trap) |
+| II-b | `lucy-gravity-assist.mp4` | Commons: *Lucy Earth Gravity Assist* (SVS20372) | NASA, public domain | 2–18 s |
+| III-a | `pulsar-spin.mp4` | Commons: *Millisecond pulsar and accretion disk* | NASA, public domain | 6–18 s |
+| III-b | `earth-orbit.mp4` | Commons: *Down the American West Coast* (ISS) | NASA, public domain | 0–15 s |
+| IV-a | `f14-vapor-cone.mp4` | Commons: *F-14A Tomcat supersonic flyby, 1986* | US Navy, public domain | 0–9 s |
+| IV-b | `bbh-merger.mp4` | Commons: *Spinning binary black holes merging* | NASA, public domain | 33–49 s (merger) |
+| IV-b | `gw150914-chirp.wav` | [GWOSC](https://gwosc.org/audio/) GW150914 (H1, shifted) | LIGO/Virgo open data | as-is |
+
+All clips are H.264 MP4 (faststart), muted except Apollo. Everything is downloaded
+so nothing streams during class. To refresh or re-trim a clip, edit the matching
+line in `build-media.sh` and re-run it.

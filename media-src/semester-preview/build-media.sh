@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+# build-media.sh — regenerate the Semester Preview web-ready media.
+#
+# Downloads the public-domain / open-access sources (Wikimedia Commons + GWOSC),
+# trims and normalizes them with ffmpeg into public/media/semester-preview/.
+# Fully reproducible: no raw source binaries are committed, only this script and
+# the normalized MP4/WAV the app ships. Run from anywhere:  bash build-media.sh
+set -euo pipefail
+here="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+root="$(cd "$here/../.." && pwd)"                 # demos repo root
+OUT="$root/public/media/semester-preview"
+TMP="$(mktemp -d)"; trap 'rm -rf "$TMP"' EXIT
+mkdir -p "$OUT"
+command -v ffmpeg >/dev/null || { echo "ffmpeg required: brew install ffmpeg"; exit 1; }
+
+commons_url () { # $1 = "File:Title.ext" -> direct upload URL
+  curl -s --max-time 30 "https://commons.wikimedia.org/w/api.php?action=query&titles=$(python3 -c 'import urllib.parse,sys;print(urllib.parse.quote(sys.argv[1]))' "$1")&prop=imageinfo&iiprop=url&format=json" \
+    | python3 -c 'import sys,json;print(list(json.load(sys.stdin)["query"]["pages"].values())[0]["imageinfo"][0]["url"])'
+}
+
+# vid <File title> <out.mp4> <ss> <dur> <height> <crf> [keepaudio]
+vid () {
+  local u; u="$(commons_url "$1")"
+  curl -fsSL -A "usna-edu-download" -o "$TMP/in" "$u"
+  local a=(-an)
+  [ "${7:-}" = "audio" ] && a=(-c:a aac -b:a 96k)
+  ffmpeg -y -loglevel error -ss "$3" -i "$TMP/in" -t "$4" -vf "scale=-2:$5" \
+    -c:v libx264 -crf "$6" -preset slow -pix_fmt yuv420p "${a[@]}" -movflags +faststart "$2"
+  echo "  built $(basename "$2")"
+}
+
+echo "Building Semester Preview media -> $OUT"
+# Act I-a: real carrier catapult launch, trimmed to the shot
+vid "File:F-18 taking off from Nimitz (Video).ogv"                                   "$OUT/fa18-catapult.mp4"           21 4  720 24
+# Act I-b: Apollo 15 hammer & feather (keep the narration audio)
+vid "File:Apollo 15 feather and hammer drop.ogv"                                     "$OUT/apollo15-hammer-feather.mp4"  0 48 480 27 audio
+# Act II-a: carrier arrested landing, trimmed to the trap
+vid "File:X-47B Completes First Carrier-based Arrested Landing.ogv"                   "$OUT/x47b-arrested-landing.mp4"   19 16 720 24
+# Act II-b: gravity-assist flyby (NASA Lucy)
+vid "File:Lucy Earth Gravity Assist One- Animations (SVS20372 - Lucy EGA Shot6 2160p30).webm" "$OUT/lucy-gravity-assist.mp4" 2 16 720 24
+# Act III-a: spinning millisecond pulsar (NASA)
+vid "File:Millisecond pulsar and accretion disk - NASA animation (hi-res).ogv"       "$OUT/pulsar-spin.mp4"              6 12 720 24
+# Act III-b: Earth from low orbit (ISS)
+vid "File:Down the American West Coast.ogv"                                           "$OUT/earth-orbit.mp4"              0 15 720 24
+# Act IV-a: F-14 transonic vapor cone (US Navy)
+vid "File:F-14A Tomcat supersonic flyby, 1986.ogv"                                   "$OUT/f14-vapor-cone.mp4"           0 9  720 24
+# Act IV-b: binary black hole merger (NASA), trimmed to the inspiral + merger
+vid "File:Spinning binary black holes merging.webm"                                  "$OUT/bbh-merger.mp4"              33 16 720 24
+
+# Act IV-b audio: LIGO GW150914 chirp (GWOSC open data)
+curl -fsSL -o "$OUT/gw150914-chirp.wav" "https://gwosc.org/GW150914data/GW150914_H1_shifted.wav"
+echo "  built gw150914-chirp.wav"
+echo "Done."

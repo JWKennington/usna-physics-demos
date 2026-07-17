@@ -254,7 +254,7 @@ export default function GravityAssist({ compact = false }) {
         />
         {!compact && (
           <p className="text-usna-muted text-xs mt-2">
-            Closer flyby &rarr; bigger boost &mdash; the craft steals momentum from the moving planet, just like a light cart bouncing off a heavy one.
+            Closer flyby means a bigger boost: the craft steals momentum from the moving planet, just like a light cart bouncing off a heavy one.
           </p>
         )}
       </div>

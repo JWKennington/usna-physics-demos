@@ -169,7 +169,7 @@ export default function ProjectileArc({ compact = false }) {
         />
         {!compact && (
           <p className="text-usna-muted text-xs mt-2">
-            Dashed arc is the complementary angle {90 - angle}&deg; &mdash; same range, every time.
+            Dashed arc is the complementary angle {90 - angle}&deg;, the same range every time.
           </p>
         )}
       </div>

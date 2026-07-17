@@ -256,8 +256,8 @@ export default function NeutronStarSpin({ compact = false }) {
         />
         {!compact && (
           <p className="text-usna-muted text-xs mt-2">
-            L = I&omega; is conserved, so &omega; &prop; 1/R&sup2; &mdash; shrink the star like a
-            skater pulling in her arms and the spin skyrockets to ~700 rev/s.
+            L = I&omega; is conserved, so &omega; &prop; 1/R&sup2;. Shrink the star like a
+            skater pulling in her arms and the spin climbs toward 700 rev/s.
           </p>
         )}
       </div>

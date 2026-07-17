@@ -167,7 +167,7 @@ export default function StandingWaves({ compact = false }) {
         />
         {!compact && (
           <p className="text-usna-muted text-xs mt-2">
-            Fixed ends force whole numbers of half-wavelengths &mdash; the harmonics.
+            Fixed ends force whole numbers of half-wavelengths: the harmonics.
           </p>
         )}
       </div>
