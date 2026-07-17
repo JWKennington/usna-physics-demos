@@ -46,6 +46,14 @@ vid "File:Down the American West Coast.ogv"                                     
 vid "File:230520-N-NQ285-2004 - USS Porter SM-2 launch Formidable Shield 2023.webm"  "$OUT/ddg-sm2-launch.mp4"           5 10 720 24
 # Act IV-b: binary black hole merger (NASA), trimmed to the inspiral + merger
 vid "File:Spinning binary black holes merging.webm"                                  "$OUT/bbh-merger.mp4"              33 16 720 24
+# Unit I-c: Blue Angels banking turn (US Navy) — circular motion / g-loading
+vid "File:Blue Angels US Navy 2025.webm"                                             "$OUT/blueangels-turn.mp4"        128 10 720 24
+# Unit II-c: roller coaster — kinetic <-> potential energy
+vid "File:Roller coaster vertical loop.ogv"                                          "$OUT/coaster-energy.mp4"           0 11 640 24
+# Unit III-c: warship launch — buoyancy (a ship floats)
+vid "File:Launch of NUSHIP Stalwart at Ferrol Shipyard in Spain.webm"                "$OUT/ship-launch.mp4"              2 10 720 24
+# Unit IV-c: Tacoma Narrows oscillation and collapse, 1940
+vid "File:Tacoma Narrows Bridge destruction.ogv"                                     "$OUT/tacoma-oscillation.mp4"      98 20 480 24
 
 # Act IV-b audio: LIGO GW150914 chirp (GWOSC open data)
 curl -fsSL -o "$OUT/gw150914-chirp.wav" "https://gwosc.org/GW150914data/GW150914_H1_shifted.wav"

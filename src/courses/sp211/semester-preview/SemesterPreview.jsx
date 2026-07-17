@@ -8,9 +8,13 @@ import NeutronStarSpin from './demos/NeutronStarSpin';
 import OrbitSim from './demos/OrbitSim';
 import DopplerWavefronts from './demos/DopplerWavefronts';
 import StandingWaves from './demos/StandingWaves';
+import CircularMotion from './demos/CircularMotion';
+import EnergyWell from './demos/EnergyWell';
+import BuoyancyTank from './demos/BuoyancyTank';
+import SpringSHM from './demos/SpringSHM';
 
 /**
- * SemesterPreview — the Day-1 (M1) "semester in four acts" performance.
+ * SemesterPreview — the Day-1 (M1) "semester in four units" performance.
  *
  * A full-screen, keyboard-driven deck that lives OUTSIDE the usual course/chapter
  * chrome (its own route, /#/sp211/semester-preview). Each act follows the plan's
@@ -110,10 +114,10 @@ export default function SemesterPreview() {
 
 /* ─────────────────────────── slide primitives ─────────────────────────── */
 
-function Eyebrow({ act, unit, test }) {
+function Eyebrow({ num, unit, test }) {
   return (
     <div className="font-mono text-sm tracking-widest uppercase" style={{ color: GOLD }}>
-      Act {act} <span style={{ color: MUTED }}>·</span> {unit} <span style={{ color: MUTED }}>→ {test}</span>
+      Unit {num} <span style={{ color: MUTED }}>·</span> {unit} <span style={{ color: MUTED }}>→ {test}</span>
     </div>
   );
 }
@@ -179,7 +183,7 @@ const SLIDES = [
         <img src={`${import.meta.env.BASE_URL}usna-logo-small.png`} alt="USNA" className="h-24 mb-8 opacity-90" />
         <div className="font-mono tracking-[0.35em] text-sm mb-4" style={{ color: GOLD }}>SP211 · GENERAL PHYSICS I</div>
         <h1 className="text-6xl font-extrabold mb-4" style={{ color: TEXT }}>Semester Preview</h1>
-        <p className="text-2xl mb-10" style={{ color: MUTED }}>Four acts. Fifteen weeks. One toolkit.</p>
+        <p className="text-2xl mb-10" style={{ color: MUTED }}>Four units. Fifteen weeks. One toolkit.</p>
         <p className="max-w-2xl text-lg leading-relaxed" style={{ color: TEXT }}>
           Everything you are about to see is on the syllabus. The homework teaches you to compute it,
           the labs let you measure it, and the simulations let you explore it.
@@ -187,14 +191,14 @@ const SLIDES = [
         <div className="mt-12 font-mono text-sm animate-pulse" style={{ color: GOLD }}>press → to begin</div>
       </div>
     ),
-    notes: 'Say the meta-message out loud, then hard cut into Act I. Three minutes per act is a ceiling, not a target.',
+    notes: 'Say the meta-message out loud, then move into Unit I. Three minutes per unit is a ceiling, not a target.',
   },
 
   // 1 — Act I-a: Things that fly
   {
     render: () => (
       <ActFrame
-        eyebrow={<Eyebrow act="I" unit="Kinematics & Newton" test="Test 1" />}
+        eyebrow={<Eyebrow num="I" unit="Kinematics & Newton" test="Test 1" />}
         title="Things that fly"
         demo={<ProjectileArc />}
         aside={<>
@@ -219,7 +223,7 @@ const SLIDES = [
   {
     render: () => (
       <ActFrame
-        eyebrow={<Eyebrow act="I" unit="Kinematics & Newton" test="Test 1" />}
+        eyebrow={<Eyebrow num="I" unit="Kinematics & Newton" test="Test 1" />}
         title="…and how they fall"
         demo={<AirVacuumDrop />}
         aside={<>
@@ -239,11 +243,35 @@ const SLIDES = [
     notes: 'Slide air resistance to zero live; the two balls sync up. Then play the Apollo clip (has audio).',
   },
 
+  // Unit I-c: Turning
+  {
+    render: () => (
+      <ActFrame
+        eyebrow={<Eyebrow num="I" unit="Kinematics & Newton" test="Test 1" />}
+        title="Turning"
+        demo={<CircularMotion />}
+        aside={<>
+          <Video src="blueangels-turn.mp4" ambient caption="US Navy Blue Angels banking through a turn (US Navy)" />
+          <Beat tag="Application">
+            Even at a constant speed, a turn is an acceleration, because the direction of the velocity keeps
+            changing. A fighter pulls several g in a tight turn, and a ship's turning circle is the same
+            physics at sea, only slower and wider.
+          </Beat>
+          <Beat tag="Idea">
+            The acceleration always points to the center of the turn, and it grows with the square of the speed.
+          </Beat>
+        </>}
+        stat="a = v² / r. Double the speed and you quadruple the pull toward the center."
+      />
+    ),
+    notes: 'Constant speed, but the velocity vector keeps turning. Point out the inward acceleration arrow growing with v.',
+  },
+
   // 3 — Act II-a: Collisions & impulse
   {
     render: () => (
       <ActFrame
-        eyebrow={<Eyebrow act="II" unit="Work · Energy · Momentum" test="Test 2" />}
+        eyebrow={<Eyebrow num="II" unit="Work · Energy · Momentum" test="Test 2" />}
         title="Collisions & impulse"
         demo={<CollisionCarts />}
         aside={<>
@@ -267,7 +295,7 @@ const SLIDES = [
   {
     render: () => (
       <ActFrame
-        eyebrow={<Eyebrow act="II" unit="Work · Energy · Momentum" test="Test 2" />}
+        eyebrow={<Eyebrow num="II" unit="Work · Energy · Momentum" test="Test 2" />}
         title="Momentum, at a distance"
         demo={<GravityAssist />}
         aside={<>
@@ -287,11 +315,36 @@ const SLIDES = [
     notes: 'The slingshot is the payoff of the cart collision: same law, no contact. Default flyby boosts about 50%.',
   },
 
+  // Unit II-c: Energy, traded
+  {
+    render: () => (
+      <ActFrame
+        eyebrow={<Eyebrow num="II" unit="Work · Energy · Momentum" test="Test 2" />}
+        title="Energy, traded"
+        demo={<EnergyWell />}
+        aside={<>
+          <Video src="coaster-energy.mp4" ambient caption="A roller coaster trading height for speed and back" />
+          <Beat tag="Application">
+            A roller coaster, a pole vaulter, and a diving aircraft all trade the same two currencies, kinetic
+            energy and potential energy. Add them and the total holds constant, which is what makes the outcome
+            predictable.
+          </Beat>
+          <Beat tag="Idea">
+            Friction and drag skim energy off into heat, which is why nothing swings forever. Conservation of
+            energy still accounts for every bit of it.
+          </Beat>
+        </>}
+        stat="Kinetic plus potential energy stays constant. Speed is height in disguise."
+      />
+    ),
+    notes: 'Watch the two bars trade while their sum stays flat. This is the energy half of Unit II, alongside momentum.',
+  },
+
   // 5 — Act III-a: Spin
   {
     render: () => (
       <ActFrame
-        eyebrow={<Eyebrow act="III" unit="Rotation · Gravity · Fluids" test="Test 3.1" />}
+        eyebrow={<Eyebrow num="III" unit="Rotation · Gravity · Fluids" test="Test 3.1" />}
         title="Spin"
         demo={<NeutronStarSpin />}
         aside={<>
@@ -316,7 +369,7 @@ const SLIDES = [
   {
     render: () => (
       <ActFrame
-        eyebrow={<Eyebrow act="III" unit="Rotation · Gravity · Fluids" test="Test 3.1" />}
+        eyebrow={<Eyebrow num="III" unit="Rotation · Gravity · Fluids" test="Test 3.1" />}
         title="Gravity & orbits"
         demo={<OrbitSim />}
         aside={<>
@@ -337,11 +390,36 @@ const SLIDES = [
     notes: 'Sweep launch speed slowly: circle → ellipse → escape. The dashed circle is the circular-orbit reference.',
   },
 
+  // Unit III-c: Float, sink, or hover
+  {
+    render: () => (
+      <ActFrame
+        eyebrow={<Eyebrow num="III" unit="Rotation · Gravity · Fluids" test="Test 3.1" />}
+        title="Float, sink, or hover"
+        demo={<BuoyancyTank />}
+        aside={<>
+          <Video src="ship-launch.mp4" ambient caption="A warship entering the water at launch (NUSHIP Stalwart)" />
+          <Beat tag="Application">
+            A ship floats because it pushes aside its own weight in water. A submarine turns that into a
+            control: flood the ballast tanks to grow heavier and dive, blow them to rise, or trim to hover
+            neutrally at depth.
+          </Beat>
+          <Beat tag="Idea">
+            The buoyant force equals the weight of the fluid displaced, Archimedes' result, and it decides
+            whether an object rises, sinks, or hangs in place.
+          </Beat>
+        </>}
+        stat="Buoyant force equals the weight of displaced water. Match it to your own and you hover."
+      />
+    ),
+    notes: 'Set the density to 1.0 for neutral buoyancy, the submarine hover. Below it floats, above it sinks. Ch 13.3, L34.',
+  },
+
   // 7 — Act IV-a: Doppler & sound
   {
     render: () => (
       <ActFrame
-        eyebrow={<Eyebrow act="IV" unit="Oscillations & Waves" test="Test 3.2" />}
+        eyebrow={<Eyebrow num="IV" unit="Oscillations & Waves" test="Test 3.2" />}
         title="Doppler & sound"
         demo={<DopplerWavefronts />}
         aside={<>
@@ -365,7 +443,7 @@ const SLIDES = [
   {
     render: () => (
       <ActFrame
-        eyebrow={<Eyebrow act="IV" unit="Oscillations & Waves" test="Test 3.2" />}
+        eyebrow={<Eyebrow num="IV" unit="Oscillations & Waves" test="Test 3.2" />}
         title="Waves that carry"
         demo={<StandingWaves />}
         aside={<>
@@ -392,11 +470,36 @@ const SLIDES = [
     notes: 'Step through harmonics, then play the chirp last. End on the personal connection. Test speakers first.',
   },
 
+  // Unit IV-c: Oscillations
+  {
+    render: () => (
+      <ActFrame
+        eyebrow={<Eyebrow num="IV" unit="Oscillations & Waves" test="Test 3.2" />}
+        title="Oscillations"
+        demo={<SpringSHM />}
+        aside={<>
+          <Video src="tacoma-oscillation.mp4" ambient caption="Tacoma Narrows Bridge, an oscillation that grew until it failed (1940)" />
+          <Beat tag="Application">
+            A ship rolls about its upright position like a mass on a spring, with a natural period set by its
+            stiffness and its mass. Naval architects tune that period, and the dampers that bleed it, so a roll
+            never builds.
+          </Beat>
+          <Beat tag="Idea">
+            Pull it further and it swings wider but takes the same time. That steadiness is what makes a
+            pendulum a clock.
+          </Beat>
+        </>}
+        stat="The period depends on stiffness and mass, not on how far you pull it."
+      />
+    ),
+    notes: 'Change the stiffness to change the period; amplitude does not matter. Sets up the wave slides that follow.',
+  },
+
   // 5 — Closing
   {
     render: () => (
       <div className="flex-1 flex flex-col items-center justify-center text-center">
-        <h2 className="text-5xl font-extrabold mb-6" style={{ color: TEXT }}>Four acts. One toolkit.</h2>
+        <h2 className="text-5xl font-extrabold mb-6" style={{ color: TEXT }}>Four units. One toolkit.</h2>
         <p className="max-w-3xl text-xl leading-relaxed mb-10" style={{ color: TEXT }}>
           Every one of these starts with <span style={{ color: GOLD }}>F = ma</span> or a
           <span style={{ color: GOLD }}> conservation law</span>, and by Friday you will have derived your first piece of it.

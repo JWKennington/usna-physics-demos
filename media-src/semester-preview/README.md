@@ -22,6 +22,10 @@ bash media-src/semester-preview/build-media.sh
 | III-b | `earth-orbit.mp4` | Commons: *Down the American West Coast* (ISS) | NASA, public domain | 0–15 s |
 | IV-a | `ddg-sm2-launch.mp4` | Commons: *USS Porter SM-2 launch, Formidable Shield 2023* | US Navy, public domain | 5–15 s |
 | IV-b | `bbh-merger.mp4` | Commons: *Spinning binary black holes merging* | NASA, public domain | 33–49 s (merger) |
+| I-c | `blueangels-turn.mp4` | Commons: *Blue Angels US Navy 2025* | US Navy, public domain | 128–138 s |
+| II-c | `coaster-energy.mp4` | Commons: *Roller coaster vertical loop* | CC (Wikimedia) | 0–11 s |
+| III-c | `ship-launch.mp4` | Commons: *Launch of NUSHIP Stalwart at Ferrol Shipyard* | CC (Wikimedia) | 2–12 s |
+| IV-c | `tacoma-oscillation.mp4` | Commons: *Tacoma Narrows Bridge destruction* (1940) | public domain | 98–118 s |
 | IV-b | `gw150914-chirp.wav` | [GWOSC](https://gwosc.org/audio/) GW150914 (H1, shifted) | LIGO/Virgo open data | as-is |
 
 All clips are H.264 MP4 (faststart), muted except Apollo. Everything is downloaded
