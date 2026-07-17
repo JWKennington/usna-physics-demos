@@ -20,7 +20,7 @@ bash media-src/semester-preview/build-media.sh
 | II-b | `lucy-gravity-assist.mp4` | Commons: *Lucy Earth Gravity Assist* (SVS20372) | NASA, public domain | 2–18 s |
 | III-a | `pulsar-spin.mp4` | Commons: *Millisecond pulsar and accretion disk* | NASA, public domain | 6–18 s |
 | III-b | `earth-orbit.mp4` | Commons: *Down the American West Coast* (ISS) | NASA, public domain | 0–15 s |
-| IV-a | `f14-vapor-cone.mp4` | Commons: *F-14A Tomcat supersonic flyby, 1986* | US Navy, public domain | 0–9 s |
+| IV-a | `ddg-sm2-launch.mp4` | Commons: *USS Porter SM-2 launch, Formidable Shield 2023* | US Navy, public domain | 5–15 s |
 | IV-b | `bbh-merger.mp4` | Commons: *Spinning binary black holes merging* | NASA, public domain | 33–49 s (merger) |
 | IV-b | `gw150914-chirp.wav` | [GWOSC](https://gwosc.org/audio/) GW150914 (H1, shifted) | LIGO/Virgo open data | as-is |
 

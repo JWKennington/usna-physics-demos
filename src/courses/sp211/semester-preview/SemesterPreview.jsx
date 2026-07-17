@@ -200,12 +200,13 @@ const SLIDES = [
         aside={<>
           <Video src="fa18-catapult.mp4" ambient caption="F/A-18 catapult launch from a carrier (US Navy)" />
           <Beat tag="Mission" community="Aviation">
-            The catapult takes an aircraft from 0 to <b>165&nbsp;kt in about 2&nbsp;s</b>, roughly <b>3&nbsp;g</b>.
-            You will compute that acceleration in week 3 and decide whether a pilot can withstand it.
+            The catapult accelerates an aircraft from 0 to <b>165&nbsp;kt in about 2&nbsp;s</b>, roughly <b>3&nbsp;g</b>,
+            and the arrested landing brings it back to rest just as fast. You will compute both accelerations in week 3.
           </Beat>
-          <Beat tag="Application">
-            The projectile arc is a firing solution. Two launch angles reach the same range, a high one and a
-            low one, and choosing between them is a real gunnery decision.
+          <Beat tag="Application" community="Marine Corps">
+            Marine mortars and artillery are projectile motion, the same arc on screen. A gun crew sets the
+            charge and the elevation to land a round on a target it often cannot see, and a high-angle
+            trajectory can reach over terrain that a flat one would strike.
           </Beat>
         </>}
         stat="Drag the launch angle. The dashed complementary angle always lands at the same range."
@@ -228,8 +229,8 @@ const SLIDES = [
             rate: the vacuum approximation we rely on all semester, made real.
           </Beat>
           <Beat tag="Application" community="Special Warfare">
-            A SEAL on a HALO jump levels off near <b>55&nbsp;m/s</b> terminal speed. The same drag law sets
-            the free-fall and canopy phases of the insertion.
+            Naval special warfare plans a HALO insertion around this drag: the jumper reaches a terminal speed
+            near <b>55&nbsp;m/s</b>, and the same physics sets the altitude to open the canopy.
           </Beat>
         </>}
         stat="Turn air resistance to zero and the two land together. That is the Moon."
@@ -252,8 +253,8 @@ const SLIDES = [
             That is impulse: a large momentum change delivered as a force over time.
           </Beat>
           <Beat tag="Application" community="EOD">
-            An EOD technician runs the same impulse and energy budget in reverse, using it to set a safe
-            standoff distance and to judge what a given charge will do.
+            Explosive ordnance disposal works the same relationship in reverse, using a blast's impulse and
+            energy to set the standoff distances and procedures that make a device safe to approach.
           </Beat>
         </>}
         stat="Momentum is conserved in every collision. Kinetic energy is conserved only when it is perfectly elastic."
@@ -295,9 +296,10 @@ const SLIDES = [
         demo={<NeutronStarSpin />}
         aside={<>
           <Video src="pulsar-spin.mp4" ambient caption="A millisecond pulsar, spinning hundreds of times a second (NASA)" />
-          <Beat tag="Mission" community="Surface Warfare">
-            The same resistance to tilting keeps a gyrocompass pointed and lets a ship's fin stabilizers
-            steady its roll in a heavy sea. That stubbornness is angular momentum.
+          <Beat tag="Mission" community="Submarine">
+            A submarine can operate for months with no GPS, tracking its position by inertial navigation built
+            on spinning gyroscopes. A spun-up gyro resists being turned, so it holds a fixed reference
+            direction. That resistance is angular momentum.
           </Beat>
           <Beat tag="Frontier · neutron star">
             Collapse a star to the size of Annapolis and it spins up to <b>700 rev/s</b>, the same law as a
@@ -320,8 +322,9 @@ const SLIDES = [
         aside={<>
           <Video src="earth-orbit.mp4" ambient caption="Earth from low orbit (NASA, from the ISS)" />
           <Beat tag="Mission" community="Information Warfare">
-            GPS satellites hold precise orbits fixed by this balance of speed and gravity. The information
-            warfare community lives on that timing and positioning, and plans for an adversary trying to deny it.
+            GPS satellites hold precise orbits fixed by this balance of speed and gravity. Information warfare
+            depends on that timing and positioning, and on the electromagnetic spectrum beside it: the signals
+            both sides rely on, and try to deny.
           </Beat>
           <Beat tag="Frontier · escape">
             One number decides everything: below <b>√2 times the circular speed</b> the orbit is bound, above
@@ -342,14 +345,14 @@ const SLIDES = [
         title="Doppler & sound"
         demo={<DopplerWavefronts />}
         aside={<>
-          <Video src="f14-vapor-cone.mp4" ambient caption="F-14 transonic flyby, vapor at the shock front (US Navy)" />
-          <Beat tag="Mission" community="Submarine">
-            Sonar is how the submarine force sees. Doppler sonar reads a contact's speed straight off the
-            frequency shift. Push the source past Mach 1 for the shock cone in the clip.
+          <Video src="ddg-sm2-launch.mp4" ambient caption="Destroyer firing an SM-2 air-defense missile (US Navy)" />
+          <Beat tag="Mission" community="Surface Warfare">
+            Surface warfare runs on the radar picture. A moving contact shows up as a Doppler shift, and
+            tracking it is what cues an air-defense engagement like the one in the clip.
           </Beat>
           <Beat tag="Application">
-            The same shift runs radar and electronic warfare. Any wave reflected off a moving target carries
-            that target's speed in its pitch.
+            The submarine force hears the same shift rather than seeing it: passive sonar reads a contact's
+            speed from the pitch of its radiated noise, without revealing its own position.
           </Beat>
         </>}
         stat="Below Mach 1 the pitch rises ahead and drops behind. Past Mach 1 the crests form a shock cone."
@@ -367,10 +370,10 @@ const SLIDES = [
         demo={<StandingWaves />}
         aside={<>
           <Video src="bbh-merger.mp4" ambient caption="Two black holes spiraling in and merging (NASA simulation)" />
-          <Beat tag="Application" community="Nuclear">
+          <Beat tag="Application" community="Engineering">
             A turbine blade, a propeller shaft, and a reactor's internals all have resonant modes like these.
-            The nuclear community designs and runs its machinery to keep the dangerous frequencies clear of
-            the ones it meets at sea.
+            Naval engineers design and run the plant to keep the dangerous frequencies clear of the ones the
+            ship meets at sea.
           </Beat>
           <Beat tag="Frontier · gravitational waves">
             The same standing-wave mathematics, scaled to 4-km laser interferometers, detected two black holes
@@ -411,6 +414,6 @@ const SLIDES = [
         </p>
       </div>
     ),
-    notes: 'Close, then one last Free Fall drop off-deck: "By Friday you’ll predict this entire curve with three equations."',
+    notes: 'Close, then one last Free Fall drop off-deck: "By Friday you will predict this entire curve with three equations."',
   },
 ];

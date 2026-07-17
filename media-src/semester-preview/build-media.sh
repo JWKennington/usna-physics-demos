@@ -31,7 +31,7 @@ vid () {
 
 echo "Building Semester Preview media -> $OUT"
 # Act I-a: real carrier catapult launch, trimmed to the shot
-vid "File:F-18 taking off from Nimitz (Video).ogv"                                   "$OUT/fa18-catapult.mp4"           21 4  720 24
+vid "File:F-18 taking off from Nimitz (Video).ogv"                                   "$OUT/fa18-catapult.mp4"           20 6  720 24
 # Act I-b: Apollo 15 hammer & feather (keep the narration audio)
 vid "File:Apollo 15 feather and hammer drop.ogv"                                     "$OUT/apollo15-hammer-feather.mp4"  0 48 480 27 audio
 # Act II-a: carrier arrested landing, trimmed to the trap
@@ -42,8 +42,8 @@ vid "File:Lucy Earth Gravity Assist One- Animations (SVS20372 - Lucy EGA Shot6 2
 vid "File:Millisecond pulsar and accretion disk - NASA animation (hi-res).ogv"       "$OUT/pulsar-spin.mp4"              6 12 720 24
 # Act III-b: Earth from low orbit (ISS)
 vid "File:Down the American West Coast.ogv"                                           "$OUT/earth-orbit.mp4"              0 15 720 24
-# Act IV-a: F-14 transonic vapor cone (US Navy)
-vid "File:F-14A Tomcat supersonic flyby, 1986.ogv"                                   "$OUT/f14-vapor-cone.mp4"           0 9  720 24
+# Act IV-a: SM-2 air-defense missile launch (US Navy, USS Porter)
+vid "File:230520-N-NQ285-2004 - USS Porter SM-2 launch Formidable Shield 2023.webm"  "$OUT/ddg-sm2-launch.mp4"           5 10 720 24
 # Act IV-b: binary black hole merger (NASA), trimmed to the inspiral + merger
 vid "File:Spinning binary black holes merging.webm"                                  "$OUT/bbh-merger.mp4"              33 16 720 24
 
