@@ -1,23 +1,37 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { Suspense } from 'react';
+import { Suspense, lazy } from 'react';
 import Layout from './shell/Layout';
 import CoursePicker from './shell/CoursePicker';
 import CoursePage from './shell/CoursePage';
 import ChapterPage from './shell/ChapterPage';
 import ExperimentPage from './shell/ExperimentPage';
 
+// Full-screen presentation deck — its own route, outside the shell chrome.
+const SeasonPreview = lazy(() => import('./courses/sp211/season-preview/SeasonPreview'));
+
 export default function App() {
   return (
+    <Suspense fallback={<LoadingSpinner />}>
+      <Routes>
+        {/* Full-screen route: no nav/breadcrumb/footer */}
+        <Route path="/sp211/season-preview" element={<SeasonPreview />} />
+        {/* Everything else runs inside the standard shell */}
+        <Route path="/*" element={<Shell />} />
+      </Routes>
+    </Suspense>
+  );
+}
+
+function Shell() {
+  return (
     <Layout>
-      <Suspense fallback={<LoadingSpinner />}>
-        <Routes>
-          <Route path="/" element={<CoursePicker />} />
-          <Route path="/:courseId" element={<CoursePage />} />
-          <Route path="/:courseId/:chapterSlug" element={<ChapterPage />} />
-          <Route path="/:courseId/:chapterSlug/:experimentSlug" element={<ExperimentPage />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-      </Suspense>
+      <Routes>
+        <Route path="/" element={<CoursePicker />} />
+        <Route path="/:courseId" element={<CoursePage />} />
+        <Route path="/:courseId/:chapterSlug" element={<ChapterPage />} />
+        <Route path="/:courseId/:chapterSlug/:experimentSlug" element={<ExperimentPage />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
     </Layout>
   );
 }

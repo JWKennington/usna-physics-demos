@@ -19,6 +19,24 @@ export default function CoursePicker() {
         </p>
       </div>
 
+      {/* Featured: the Day-1 Season Preview performance (separate from chapter nav) */}
+      <Link
+        to="/sp211/season-preview"
+        className="group block mb-6 rounded-lg p-6 bg-usna-navy border border-usna-gold/40 hover:border-usna-gold transition-colors"
+      >
+        <div className="flex items-center gap-4">
+          <span className="shrink-0 grid place-items-center w-12 h-12 rounded-full bg-usna-gold/15 text-usna-gold text-2xl group-hover:bg-usna-gold/25 transition-colors">
+            ▶
+          </span>
+          <div>
+            <h2 className="text-xl font-semibold text-usna-gold">SP211 Season Preview</h2>
+            <p className="text-[#F0ECE3] text-sm">
+              A full-screen, live-demo tour of the semester ahead.
+            </p>
+          </div>
+        </div>
+      </Link>
+
       <div className="grid gap-6 sm:grid-cols-2">
         {courses.map((course) => {
           const expCount = course.chapters.reduce((n, ch) => n + ch.experiments.length, 0);
