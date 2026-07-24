@@ -30,8 +30,8 @@ vid () {
 }
 
 echo "Building Semester Preview media -> $OUT"
-# Unit I-a: military sniper team (bullet drop is projectile motion, wind is drag)
-vid "File:Sniper Platoon Conducts Sniper Gunnery KStuTUYUOkE.webm"                    "$OUT/sniper-marine.mp4"          12 12 720 24
+# Unit I-a: US Marine sniper, 31st MEU (bullet drop is projectile motion, wind is drag)
+vid "File:31st MEU - U S Marines conduct aerial sniper training - B-Roll 8-8 (1011621).webm" "$OUT/sniper-marine.mp4"   3 12 720 24
 # Act I-b: Apollo 15 hammer & feather (keep the narration audio)
 vid "File:Apollo 15 feather and hammer drop.ogv"                                     "$OUT/apollo15-hammer-feather.mp4"  0 48 480 27 audio
 # Unit II-a: sea mine detonation (EOD / mine warfare, impulse and energy)

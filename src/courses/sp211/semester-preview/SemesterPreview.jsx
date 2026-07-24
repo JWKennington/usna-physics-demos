@@ -314,11 +314,11 @@ const SLIDES = [
         title="Things that fly"
         demo={<ProjectileArc />}
         aside={<>
-          <Video src="sniper-marine.mp4" ambient caption="A military sniper team engaging a distant target" />
+          <Video src="sniper-marine.mp4" ambient caption="A Marine sniper over the water, 31st MEU (US Marine Corps)" />
           <Beat tag="Mission" community="Marine Corps">
-            A Marine scout sniper puts this arc to work on every shot: the round starts falling the instant it
-            leaves the barrel, so the scope is set high to compensate, and the crosswind, which is drag on the
-            round, is dialed in to walk it back onto the target.
+            A Marine sniper puts this arc to work on every shot: the round starts falling the instant it leaves
+            the barrel, so the scope is set high to compensate, and the crosswind, which is drag on the round,
+            is dialed in to walk it back onto the target.
           </Beat>
           <Beat tag="Application" community="Aviation">
             The same launch physics runs a carrier catapult, which accelerates an aircraft from 0 to
