@@ -48,12 +48,29 @@ vid "File:230520-N-NQ285-2004 - USS Porter SM-2 launch Formidable Shield 2023.we
 vid "File:Spinning binary black holes merging.webm"                                  "$OUT/bbh-merger.mp4"              33 16 720 24
 # Unit I-c: Blue Angels banking turn (US Navy) — circular motion / g-loading
 vid "File:Blue Angels US Navy 2025.webm"                                             "$OUT/blueangels-turn.mp4"         85 10 720 24
-# Unit II-c: roller coaster — kinetic <-> potential energy
-vid "File:Roller coaster vertical loop.ogv"                                          "$OUT/coaster-energy.mp4"           0 11 640 24
-# Unit III-c: Marine amphibious assault vehicles swimming ashore (buoyancy)
-vid "File:Amphibious Assault Vehicles.ogv"                                           "$OUT/aav-amphibious.mp4"         12 12 720 24
-# Unit IV-c: Tacoma Narrows oscillation and collapse, 1940
-vid "File:Tacoma Narrows Bridge destruction.ogv"                                     "$OUT/tacoma-oscillation.mp4"      98 20 480 24
+# Unit II-c: submarine-launched Trident II ballistic missile — kinetic <-> potential energy
+vid "File:Trident II UGM-133A D5LE Missile from USS Wyoming, 2021.webm"              "$OUT/slbm-launch.mp4"            14 12 720 24
+# Unit III-c: USS Pittsburgh emergency main-ballast blow (breach) — buoyancy control.
+# US Navy footage (public domain), mirrored on YouTube; needs yt-dlp (brew install yt-dlp).
+# SD 4:3 source, cropped to 16:9 from the top so the full bow stays in frame.
+if command -v yt-dlp >/dev/null; then
+  yt-dlp -q -f "bv*+ba/b" -o "$TMP/pitt.%(ext)s" "https://www.youtube.com/watch?v=rujJqZpexBU"
+  ffmpeg -y -loglevel error -ss 5.5 -i "$TMP"/pitt.* -t 11 -vf "crop=640:360:0:0,scale=1280:720" \
+    -c:v libx264 -crf 22 -preset slow -pix_fmt yuv420p -an -movflags +faststart "$OUT/submarine-breach.mp4"
+  echo "  built submarine-breach.mp4"
+else
+  echo "  SKIP submarine-breach.mp4 (needs yt-dlp: brew install yt-dlp)"
+fi
+# Unit IV-c: destroyer rolling in heavy seas (ship roll = mass on a spring, natural period).
+# US Navy "All Hands" footage (public domain), mirrored on YouTube; needs yt-dlp.
+if command -v yt-dlp >/dev/null; then
+  yt-dlp -q -f "bv*+ba/b" -o "$TMP/dest.%(ext)s" "https://www.youtube.com/watch?v=WfkSahalQGo"
+  ffmpeg -y -loglevel error -ss 0.5 -i "$TMP"/dest.* -t 9.5 -vf "scale=-2:720" \
+    -c:v libx264 -crf 23 -preset slow -pix_fmt yuv420p -an -movflags +faststart "$OUT/oscillation-shiproll.mp4"
+  echo "  built oscillation-shiproll.mp4"
+else
+  echo "  SKIP oscillation-shiproll.mp4 (needs yt-dlp: brew install yt-dlp)"
+fi
 
 # Act IV-b audio: LIGO GW150914 chirp (GWOSC open data)
 curl -fsSL -o "$OUT/gw150914-chirp.wav" "https://gwosc.org/GW150914data/GW150914_H1_shifted.wav"

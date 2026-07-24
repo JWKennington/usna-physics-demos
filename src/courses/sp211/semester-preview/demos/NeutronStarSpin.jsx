@@ -37,12 +37,21 @@ const OMEGA0 = 700 * F_MIN * F_MIN; // rev/s at f=1 so f_min -> 700 rev/s
 const SUN_R_KM = 696000;   // solar radius for the km readout
 const N_HOTSPOTS = 5;      // bright orbiting markers to show rotation
 
+// Auto-collapse animation: the radius shrinks on its own from full size down to
+// the pulsar so the spin-up is visible without touching the slider, then holds
+// briefly and loops. A toggle disables it and hands the radius back to the slider.
+const AUTO_COLLAPSE_S = 6.0; // seconds for a full sun -> pulsar collapse
+const AUTO_HOLD_S = 1.6;     // pause at the pulsar before the loop resets
+
 export default function NeutronStarSpin({ compact = false }) {
   const wrapRef = useRef(null);
   const canvasRef = useRef(null);
   const [pct, setPct] = useState(100); // radius as percent, 100 -> 3
   const pctRef = useRef(pct);
   pctRef.current = pct;
+  const [auto, setAuto] = useState(true); // radius collapses on its own by default
+  const autoRef = useRef(auto);
+  autoRef.current = auto;
 
   const f = pct / 100;
   const omega = OMEGA0 / (f * f);          // true rev/s
@@ -55,7 +64,9 @@ export default function NeutronStarSpin({ compact = false }) {
     if (!canvas || !wrap) return;
 
     let ctx, W, H, raf, last;
-    let phase = 0; // accumulated rotation angle (rad), advanced by visualOmega
+    let phase = 0;      // accumulated rotation angle (rad), advanced by visualOmega
+    let autoClock = 0;  // seconds into the current auto-collapse cycle
+    let lastPub = 0;    // last time (ms) we pushed the live radius to React state
 
     const col = (name, fallback) =>
       (getComputedStyle(document.documentElement).getPropertyValue(name).trim() || fallback);
@@ -75,14 +86,32 @@ export default function NeutronStarSpin({ compact = false }) {
       const grid = col('--color-grid', '#1A2332');
       const muted = col('--color-muted', '#8B8C8E');
 
-      const fLive = pctRef.current / 100;
-      const omegaLive = OMEGA0 / (fLive * fLive); // true rev/s
-
-      // Visual spin is capped so it never strobes. Map true omega (rev/s) onto
-      // a gentle on-screen rate: fast enough to read as "spinning hard" but no
-      // more than a couple Hz. Speed beyond the cap is conveyed by trails/glow.
-      const VIS_CAP = 2.2;                          // max on-screen rev/s
-      const visRev = Math.min(VIS_CAP, 0.25 + omegaLive * 0.006);
+      // Live radius fraction: driven by the auto-collapse clock, or the slider.
+      let fLive;
+      if (autoRef.current) {
+        autoClock += dt;
+        const cycle = AUTO_COLLAPSE_S + AUTO_HOLD_S;
+        if (autoClock >= cycle) autoClock -= cycle;    // loop the collapse
+        if (autoClock < AUTO_COLLAPSE_S) {
+          const p = autoClock / AUTO_COLLAPSE_S;       // 0..1 through the collapse
+          const e = p * p * p;                         // ease-in: gravity accelerates it
+          fLive = F_MAX + (F_MIN - F_MAX) * e;
+        } else {
+          fLive = F_MIN;                               // hold at the pulsar, then reset
+        }
+        // publish to React at a light cadence so the slider + readouts track along
+        if (now - lastPub > 90) { lastPub = now; setPct(Math.round(fLive * 100)); }
+      } else {
+        fLive = pctRef.current / 100;
+      }
+      // On-screen spin can't be proportional to the true rate: the honest omega
+      // runs 0.6 -> 700 rev/s (∝ 1/R^2), which would look flat until the very end
+      // and then strobe. So we drive the *visible* rotation as 1/R instead of the
+      // true 1/R^2 — halve the radius and the drawn spin doubles, a steady ramp
+      // the whole way down. The remaining factor of 1/R (the part we can't show as
+      // raw rotation) is carried by the lengthening trails and brightening glow.
+      const VIS_CAP = 2.6;                          // max on-screen rev/s before strobing
+      const visRev = Math.min(VIS_CAP, 0.25 / fLive);
       phase += visRev * 2 * Math.PI * dt;
 
       ctx.clearRect(0, 0, W, H);
@@ -251,9 +280,17 @@ export default function NeutronStarSpin({ compact = false }) {
         </div>
         <input
           type="range" min={3} max={100} step={1} value={pct}
-          onInput={(e) => setPct(parseFloat(e.target.value))}
+          onInput={(e) => { setAuto(false); setPct(parseFloat(e.target.value)); }}
           aria-label="Star radius" className="w-full"
         />
+        <label className="flex items-center gap-2 mt-2 text-usna-muted text-xs cursor-pointer select-none">
+          <input
+            type="checkbox" checked={auto}
+            onChange={(e) => setAuto(e.target.checked)}
+            className="accent-usna-gold"
+          />
+          Auto-collapse (uncheck to hold the radius and set it by hand)
+        </label>
         {!compact && (
           <p className="text-usna-muted text-xs mt-2">
             L = I&omega; is conserved, so &omega; &prop; 1/R&sup2;. Shrink the star like a

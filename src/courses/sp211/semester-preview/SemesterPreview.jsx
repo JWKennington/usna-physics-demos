@@ -316,13 +316,12 @@ const SLIDES = [
         aside={<>
           <Video src="sniper-marine.mp4" ambient caption="A Marine sniper over the water, 31st MEU (US Marine Corps)" />
           <Beat tag="Mission" community="Marine Corps">
-            A Marine sniper puts this arc to work on every shot: the round starts falling the instant it leaves
-            the barrel, so the scope is set high to compensate, and the crosswind, which is drag on the round,
-            is dialed in to walk it back onto the target.
+            A Marine sniper works this arc on every shot: the round begins dropping the instant it leaves the
+            barrel, so the scope is set high to compensate and the wind is dialed in to walk it back on target.
           </Beat>
           <Beat tag="Application" community="Aviation">
-            The same launch physics runs a carrier catapult, which accelerates an aircraft from 0 to
-            <b> 165&nbsp;kt in about 2&nbsp;s</b>, roughly <b>3&nbsp;g</b>. You will compute that in week 3.
+            The same launch physics runs a carrier catapult: <b>0 to 165&nbsp;kt in about 2&nbsp;s</b>, roughly
+            <b> 3&nbsp;g</b>. You will compute that in week 3.
           </Beat>
         </>}
         stat="Drag the launch angle. The dashed complementary angle always lands at the same range."
@@ -365,9 +364,9 @@ const SLIDES = [
         aside={<>
           <Video src="blueangels-turn.mp4" ambient caption="US Navy Blue Angels banking through a turn (US Navy)" />
           <Beat tag="Application">
-            Even at a constant speed, a turn is an acceleration, because the direction of the velocity keeps
-            changing. A fighter pulls several g in a tight turn, and a ship's turning circle is the same
-            physics at sea, only slower and wider.
+            Even at constant speed, a turn is an acceleration, because the direction of the velocity keeps
+            changing. A fighter pulls several g in a tight turn; a ship's turning circle is the same physics,
+            slower and wider.
           </Beat>
           <Beat tag="Idea">
             The acceleration always points to the center of the turn, and it grows with the square of the speed.
@@ -393,8 +392,8 @@ const SLIDES = [
             what changes momentum, whether two carts meet or a charge lets go.
           </Beat>
           <Beat tag="Application" community="EOD">
-            Explosive ordnance disposal reads that in reverse, working from a blast's impulse and energy to the
-            standoff distances and procedures that make a device safe to approach.
+            Explosive ordnance disposal reads it in reverse, working from a blast's impulse and energy to the
+            standoff distances that make a device safe to approach.
           </Beat>
         </>}
         stat="Momentum is conserved in every collision. Kinetic energy is conserved only when it is perfectly elastic."
@@ -417,8 +416,8 @@ const SLIDES = [
             law as two carts, with gravity as the spring. Vary the flyby distance to see the boost grow.
           </Beat>
           <Beat tag="Application">
-            Every outer-planet mission, from Voyager to Cassini to New Horizons, buys speed this way instead
-            of carrying the fuel for it.
+            Every outer-planet mission, from Voyager to New Horizons, buys speed this way instead of carrying
+            the fuel for it.
           </Beat>
         </>}
         stat="A light craft whips around a heavy moving planet and leaves faster, exactly like a cart off a wall."
@@ -435,11 +434,11 @@ const SLIDES = [
         title="Energy, traded"
         demo={<EnergyWell />}
         aside={<>
-          <Video src="coaster-energy.mp4" ambient caption="A roller coaster trading height for speed and back" />
+          <Video src="slbm-launch.mp4" ambient caption="A submarine-launched ballistic missile breaching and climbing (US Navy, Trident II)" />
           <Beat tag="Application">
-            A roller coaster, a pole vaulter, and a diving aircraft all trade the same two currencies, kinetic
-            energy and potential energy. Add them and the total holds constant, which is what makes the outcome
-            predictable.
+            A submarine's ballistic missile makes the same trade on a giant scale: after burnout it coasts up,
+            speed turning into altitude, then falls back, altitude into speed. A roller coaster does it in
+            miniature. The total holds, which is what makes the flight predictable.
           </Beat>
           <Beat tag="Idea">
             Friction and drag skim energy off into heat, which is why nothing swings forever. Conservation of
@@ -462,9 +461,9 @@ const SLIDES = [
         aside={<>
           <Video src="pulsar-spin.mp4" ambient caption="A millisecond pulsar, spinning hundreds of times a second (NASA)" />
           <Beat tag="Mission" community="Submarine">
-            A submarine can operate for months with no GPS, tracking its position by inertial navigation built
-            on spinning gyroscopes. A spun-up gyro resists being turned, so it holds a fixed reference
-            direction. That resistance is angular momentum.
+            A submarine runs for months with no GPS, holding its position by inertial navigation. A spun-up
+            gyroscope resists being turned, so it keeps a fixed reference direction. That resistance is angular
+            momentum.
           </Beat>
           <Beat tag="Frontier · neutron star">
             Collapse a star to the size of Annapolis and it spins up to <b>700 rev/s</b>, the same law as a
@@ -487,9 +486,8 @@ const SLIDES = [
         aside={<>
           <Video src="earth-orbit.mp4" ambient caption="Earth from low orbit (NASA, from the ISS)" />
           <Beat tag="Mission" community="Information Warfare">
-            GPS satellites hold precise orbits fixed by this balance of speed and gravity. Information warfare
-            depends on that timing and positioning, and on the electromagnetic spectrum beside it: the signals
-            both sides rely on, and try to deny.
+            GPS satellites hold their orbits by this balance of speed and gravity. Information warfare turns on
+            that timing and positioning, and on the spectrum both sides rely on and try to deny.
           </Beat>
           <Beat tag="Frontier · escape">
             One number decides everything: below <b>√2 times the circular speed</b> the orbit is bound, above
@@ -510,16 +508,15 @@ const SLIDES = [
         title="Float, sink, or hover"
         demo={<BuoyancyTank />}
         aside={<>
-          <Video src="aav-amphibious.mp4" ambient caption="Marine amphibious assault vehicles swimming ashore (US Marine Corps)" />
+          <Video src="submarine-breach.mp4" ambient caption="USS Pittsburgh blows its ballast tanks — an emergency main-ballast blow (US Navy)" />
           <Beat tag="Application">
-            An armored amphibious vehicle floats and swims a rifle squad ashore because it pushes aside its own
-            weight in water, the same reason a ship floats. A submarine turns that into a control, changing its
-            average density with ballast to dive, hover, or surface.
+            A submarine controls its buoyancy directly: blow the ballast tanks and it rises — hard enough here
+            to breach the surface — flood them and it sinks, match them and it hovers. The same law floats a ship.
           </Beat>
           <Beat tag="Idea">
             In uniform water the buoyant force is the same at every depth, so a denser hull sinks all the way.
-            The real ocean grows denser with depth, so buoyancy climbs as the hull sinks until it matches the
-            weight and the hull hovers, the way a submarine trims. Toggle it on the demo.
+            The real ocean grows denser with depth, so a sinking hull can reach a level where buoyancy matches
+            its weight and hovers. Toggle it on the demo.
           </Beat>
         </>}
         stat="Buoyant force equals the weight of displaced water. Match it to your own and you hover."
@@ -562,9 +559,8 @@ const SLIDES = [
         aside={<>
           <Video src="bbh-merger.mp4" ambient caption="Two black holes spiraling in and merging (NASA simulation)" />
           <Beat tag="Application" community="Engineering">
-            A turbine blade, a propeller shaft, and a reactor's internals all have resonant modes like these.
-            Naval engineers design and run the plant to keep the dangerous frequencies clear of the ones the
-            ship meets at sea.
+            A turbine blade, a propeller shaft, a reactor's internals all have resonant modes like these. Naval
+            engineers keep the dangerous frequencies clear of the ones the ship meets at sea.
           </Beat>
           <Beat tag="Frontier · gravitational waves">
             The same standing-wave mathematics, scaled to 4-km laser interferometers, detected two black holes
@@ -591,11 +587,10 @@ const SLIDES = [
         title="Oscillations"
         demo={<SpringSHM />}
         aside={<>
-          <Video src="tacoma-oscillation.mp4" ambient caption="Tacoma Narrows Bridge, an oscillation that grew until it failed (1940)" />
+          <Video src="oscillation-shiproll.mp4" ambient caption="A destroyer rolling through heavy seas (US Navy)" />
           <Beat tag="Application">
-            A ship rolls about its upright position like a mass on a spring, with a natural period set by its
-            stiffness and its mass. Naval architects tune that period, and the dampers that bleed it, so a roll
-            never builds.
+            A ship rolls about upright like a mass on a spring, with a natural period set by its stiffness and
+            mass. Naval architects tune that period, and the dampers that bleed it, so a roll never builds.
           </Beat>
           <Beat tag="Idea">
             Pull it further and it swings wider but takes the same time. That steadiness is what makes a
