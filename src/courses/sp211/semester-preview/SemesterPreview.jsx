@@ -1,5 +1,6 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { LayoutGroup, AnimatePresence, motion } from 'framer-motion';
 import ProjectileArc from './demos/ProjectileArc';
 import AirVacuumDrop from './demos/AirVacuumDrop';
 import CollisionCarts from './demos/CollisionCarts';
@@ -30,11 +31,36 @@ const NAVY = '#00205B';
 const TEXT = '#F0ECE3';
 const MUTED = '#8B8C8E';
 
+// Shared-element zoom timing for the hub <-> unit transition.
+const ZOOM = { duration: 0.55, ease: [0.32, 0.72, 0, 1] };
+
+// One representative, auto-running demo per unit, shown live in the hub cards.
+const UNIT_DEMOS = [ProjectileArc, GravityAssist, NeutronStarSpin, DopplerWavefronts];
+const UNIT_META = [
+  { num: 'I', topic: 'Kinematics & Newton' },
+  { num: 'II', topic: 'Work, Energy & Momentum' },
+  { num: 'III', topic: 'Rotation, Gravity & Fluids' },
+  { num: 'IV', topic: 'Oscillations & Waves' },
+];
+
 export default function SemesterPreview() {
   const navigate = useNavigate();
   const [params] = useSearchParams();
-  const n = SLIDES.length;
-  // Deep-link to an act with ?s=N (also lets you resume mid-deck).
+
+  // Linear step sequence: title, hub, then (three unit slides, hub) per unit,
+  // close. The hub recurs between sections; entering or leaving a unit zooms its
+  // card in the 2x2 grid.
+  const STEPS = useMemo(() => {
+    const st = [{ kind: 'title' }, { kind: 'hub' }];
+    for (let u = 0; u < 4; u++) {
+      for (let s = 0; s < 3; s++) st.push({ kind: 'unit', u, s });
+      st.push({ kind: 'hub' });
+    }
+    st.push({ kind: 'close' });
+    return st;
+  }, []);
+  const n = STEPS.length;
+
   const start = Math.min(n - 1, Math.max(0, parseInt(params.get('s'), 10) || 0));
   const [i, setI] = useState(start);
   const [notes, setNotes] = useState(false);
@@ -53,6 +79,10 @@ export default function SemesterPreview() {
     if (!document.fullscreenElement) document.documentElement.requestFullscreen?.();
     else document.exitFullscreen?.();
   }, []);
+  const enterUnit = useCallback((u) => {
+    const idx = STEPS.findIndex((st) => st.kind === 'unit' && st.u === u && st.s === 0);
+    if (idx >= 0) setI(idx);
+  }, [STEPS]);
 
   useEffect(() => {
     const onKey = (e) => {
@@ -71,44 +101,126 @@ export default function SemesterPreview() {
     return () => window.removeEventListener('keydown', onKey);
   }, [next, prev, toggleFull, navigate, n]);
 
-  const slide = SLIDES[i];
+  const step = STEPS[i];
+  const activeSlide =
+    step.kind === 'title' ? SLIDES[0] :
+    step.kind === 'close' ? SLIDES[SLIDES.length - 1] :
+    step.kind === 'unit' ? SLIDES[1 + step.u * 3 + step.s] : null;
+  const curUnit = step.kind === 'unit' ? step.u : -1;
 
   return (
     <div
       className="fixed inset-0 z-[100] flex flex-col overflow-hidden select-none"
       style={{ background: `radial-gradient(120% 120% at 50% 0%, #012 0%, #001233 55%, #00060f 100%)`, color: TEXT }}
     >
-      {/* slide body (only the active slide mounts, so its videos/animations are fresh) */}
       <div className="flex-1 min-h-0 px-10 pt-8 pb-4 flex flex-col">
-        {slide.render()}
+        <LayoutGroup>
+          {step.kind === 'title' && SLIDES[0].render()}
+          {step.kind === 'hub' && <Hub onEnter={enterUnit} />}
+          {step.kind === 'unit' && <UnitView u={step.u} s={step.s} />}
+          {step.kind === 'close' && SLIDES[SLIDES.length - 1].render()}
+        </LayoutGroup>
       </div>
 
       {/* speaker notes */}
-      {notes && slide.notes && (
+      {notes && activeSlide?.notes && (
         <div className="px-10 pb-2">
           <div className="rounded-lg px-4 py-3 text-sm leading-relaxed"
                style={{ background: 'rgba(0,0,0,0.45)', border: `1px solid ${NAVY}`, color: TEXT }}>
             <span className="font-mono text-xs uppercase tracking-widest mr-2" style={{ color: GOLD }}>notes</span>
-            {slide.notes}
+            {activeSlide.notes}
           </div>
         </div>
       )}
 
-      {/* footer: progress + hints */}
+      {/* footer: unit progress + context + hints */}
       <div className="flex items-center justify-between px-10 py-3 text-xs" style={{ color: MUTED }}>
-        <div className="flex items-center gap-2">
-          {SLIDES.map((s, k) => (
-            <button key={k} onClick={() => setI(k)} aria-label={`Go to slide ${k + 1}`}
-              className="h-2 rounded-full transition-all"
-              style={{ width: k === i ? 22 : 8, background: k === i ? GOLD : 'rgba(255,255,255,0.25)' }} />
-          ))}
-          <span className="ml-3 font-mono">{i + 1} / {n}</span>
+        <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1.5">
+            {UNIT_META.map((m, u) => (
+              <span key={u} className="font-mono text-[11px] px-1.5 py-0.5 rounded"
+                    style={{ color: u === curUnit ? '#00060f' : GOLD,
+                             background: u === curUnit ? GOLD : 'rgba(197,183,131,0.14)' }}>
+                {m.num}
+              </span>
+            ))}
+          </div>
+          <span className="font-mono">
+            {step.kind === 'title' ? 'Title'
+              : step.kind === 'hub' ? 'Overview'
+              : step.kind === 'close' ? 'Close'
+              : `Unit ${UNIT_META[step.u].num} · ${step.s + 1} of 3`}
+          </span>
         </div>
         <div className="font-mono tracking-wide">
           →/Space next · ← back · F fullscreen · N notes · Esc exit
         </div>
       </div>
     </div>
+  );
+}
+
+/* ───────────────────────── hub + zoom navigation ───────────────────────── */
+
+function Hub({ onEnter }) {
+  return (
+    <div className="flex-1 min-h-0 flex flex-col">
+      <div className="text-center mb-4">
+        <div className="font-mono tracking-[0.3em] text-xs" style={{ color: GOLD }}>SP211 · SEMESTER PREVIEW</div>
+        <div className="text-2xl font-bold" style={{ color: TEXT }}>Four units, one toolkit</div>
+      </div>
+      <div className="grid grid-cols-2 grid-rows-2 gap-5 flex-1 min-h-0">
+        {UNIT_META.map((_, u) => <HubCard key={u} u={u} onClick={() => onEnter(u)} />)}
+      </div>
+    </div>
+  );
+}
+
+function HubCard({ u, onClick }) {
+  const Demo = UNIT_DEMOS[u];
+  const m = UNIT_META[u];
+  return (
+    <motion.button
+      layoutId={`unit-${u}`}
+      transition={ZOOM}
+      onClick={onClick}
+      className="group relative rounded-2xl overflow-hidden text-left focus:outline-none"
+      style={{ border: '1px solid rgba(197,183,131,0.3)', background: 'rgba(0,0,0,0.28)' }}
+    >
+      {/* the live mini-demo; its slider sits below the clipped fold */}
+      <div className="absolute inset-x-0 top-0 pointer-events-none" style={{ height: 'calc(100% + 68px)' }}>
+        <Demo compact />
+      </div>
+      <div className="absolute inset-0 pointer-events-none"
+           style={{ background: 'linear-gradient(0deg, rgba(0,6,15,0.82) 0%, rgba(0,6,15,0.15) 30%, rgba(0,6,15,0) 56%)' }} />
+      <div className="absolute bottom-3 left-4">
+        <div className="font-mono text-xs tracking-widest" style={{ color: GOLD }}>UNIT {m.num}</div>
+        <div className="text-lg font-semibold leading-tight" style={{ color: TEXT }}>{m.topic}</div>
+      </div>
+      <div className="absolute top-3 right-4 font-mono text-xs opacity-0 group-hover:opacity-100 transition-opacity"
+           style={{ color: GOLD }}>enter →</div>
+    </motion.button>
+  );
+}
+
+function UnitView({ u, s }) {
+  const slide = SLIDES[1 + u * 3 + s];
+  return (
+    <motion.div
+      layoutId={`unit-${u}`}
+      transition={ZOOM}
+      className="flex-1 min-h-0 rounded-xl overflow-hidden"
+      style={{ border: '1px solid rgba(197,183,131,0.16)', background: 'rgba(0,0,0,0.22)' }}
+    >
+      <div className="h-full px-8 pt-6 pb-5 flex flex-col">
+        <AnimatePresence mode="wait">
+          <motion.div key={s} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                      transition={{ duration: 0.22 }} className="flex-1 min-h-0 flex flex-col">
+            {slide.render()}
+          </motion.div>
+        </AnimatePresence>
+      </div>
+    </motion.div>
   );
 }
 

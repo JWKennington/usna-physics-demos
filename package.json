@@ -12,22 +12,23 @@
     "test:watch": "vitest"
   },
   "dependencies": {
+    "framer-motion": "^12.42.2",
+    "katex": "^0.16",
+    "plotly.js-basic-dist-min": "^2",
     "react": "^18",
     "react-dom": "^18",
-    "react-router-dom": "^6",
+    "react-katex": "^3",
     "react-plotly.js": "^2",
-    "plotly.js-basic-dist-min": "^2",
-    "katex": "^0.16",
-    "react-katex": "^3"
+    "react-router-dom": "^6"
   },
   "devDependencies": {
-    "@vitejs/plugin-react": "^4",
-    "vite": "^5",
-    "tailwindcss": "^3",
-    "postcss": "^8",
-    "autoprefixer": "^10",
     "@fontsource/inter": "^5",
     "@fontsource/jetbrains-mono": "^5",
+    "@vitejs/plugin-react": "^4",
+    "autoprefixer": "^10",
+    "postcss": "^8",
+    "tailwindcss": "^3",
+    "vite": "^5",
     "vitest": "^1"
   }
 }
