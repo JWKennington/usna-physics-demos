@@ -15,8 +15,8 @@ import { setupCanvas } from '@shared/lib/canvas';
  * Self-contained (canvas + rAF + ResizeObserver); matches the shared design system.
  */
 const K = 1.0;   // bowl curvature: track is y = K*x^2 (world units)
-const G = 0.5;   // scaled gravity, tuned low so the oscillation is slow enough to follow
-                 // (period 2*pi/sqrt(2*G*K) ~ 6 s); it scales every energy equally,
+const G = 0.15;  // scaled gravity, tuned low so the oscillation is slow enough to follow
+                 // (period 2*pi/sqrt(2*G*K) ~ 11 s); it scales every energy equally,
                  // so the KE/PE split and their constant sum are unchanged.
 const M = 1.0;   // ball mass
 const HALF_W = 1.0; // half-width of the bowl in world x-units (x runs -1..1)

@@ -14,9 +14,9 @@ bash media-src/semester-preview/build-media.sh
 
 | Act | Web file | Source | License | Trim |
 |---|---|---|---|---|
-| I-a | `fa18-catapult.mp4` | Commons: *F-18 taking off from Nimitz* | US Navy, public domain | 21–25 s (the launch) |
+| I-a | `sniper-marine.mp4` | Commons: *Sniper Platoon Conducts Sniper Gunnery* | US Govt work | 12–24 s |
 | I-b | `apollo15-hammer-feather.mp4` | Commons: *Apollo 15 feather and hammer drop* | NASA, public domain | full (keeps audio) |
-| II-a | `x47b-arrested-landing.mp4` | Commons: *X-47B … Arrested Landing* | US Navy, public domain | 19–35 s (the trap) |
+| II-a | `eod-seamine.mp4` | Commons: *What a sea mine explosion looks like* | CC (Wikimedia) | 0–10 s |
 | II-b | `lucy-gravity-assist.mp4` | Commons: *Lucy Earth Gravity Assist* (SVS20372) | NASA, public domain | 2–18 s |
 | III-a | `pulsar-spin.mp4` | Commons: *Millisecond pulsar and accretion disk* | NASA, public domain | 6–18 s |
 | III-b | `earth-orbit.mp4` | Commons: *Down the American West Coast* (ISS) | NASA, public domain | 0–15 s |
@@ -24,7 +24,7 @@ bash media-src/semester-preview/build-media.sh
 | IV-b | `bbh-merger.mp4` | Commons: *Spinning binary black holes merging* | NASA, public domain | 33–49 s (merger) |
 | I-c | `blueangels-turn.mp4` | Commons: *Blue Angels US Navy 2025* | US Navy, public domain | 128–138 s |
 | II-c | `coaster-energy.mp4` | Commons: *Roller coaster vertical loop* | CC (Wikimedia) | 0–11 s |
-| III-c | `ship-launch.mp4` | Commons: *Launch of NUSHIP Stalwart at Ferrol Shipyard* | CC (Wikimedia) | 2–12 s |
+| III-c | `aav-amphibious.mp4` | Commons: *Amphibious Assault Vehicles* | US Govt work | 12–24 s |
 | IV-c | `tacoma-oscillation.mp4` | Commons: *Tacoma Narrows Bridge destruction* (1940) | public domain | 98–118 s |
 | IV-b | `gw150914-chirp.wav` | [GWOSC](https://gwosc.org/audio/) GW150914 (H1, shifted) | LIGO/Virgo open data | as-is |
 

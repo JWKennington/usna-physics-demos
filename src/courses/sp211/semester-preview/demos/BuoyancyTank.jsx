@@ -10,23 +10,31 @@ import { setupCanvas } from '@shared/lib/canvas';
  * above it, it sinks to the bottom. This is exactly how a submarine dives,
  * hovers, and surfaces by flooding or blowing ballast.
  *
- * Physics (scaled units): buoyant force F_B = rho_water * V * g (up), weight
- * W = rho_obj * V * g (down), net accel a = g*(rho_water - rho_obj)/rho_obj.
- * Motion is integrated with an accumulated-sim / bounded-dt step plus linear
- * drag so it SETTLES rather than oscillating forever.
+ * Physics (scaled units): buoyant force F_B = rho_water * V_sub * g (up), weight
+ * W = rho_obj * V * g (down). With "ocean layering" on (default), the water density
+ * rises with depth, rho_water = rho_water(h), so a denser hull sinks only until the
+ * local water density matches it and then hovers at that neutral depth, the way a
+ * submarine trims. With it off the water is one density and a denser hull sinks to
+ * the floor. Motion uses an accumulated-sim / bounded-dt step plus linear drag.
  *
  * Self-contained (canvas + rAF + ResizeObserver); matches the shared design system.
  */
 const G = 30;         // gravity, scaled px/s^2 units
-const DRAG = 1.9;     // linear drag coefficient so motion settles
-const RHO_WATER = 1;  // reference density
+const DRAG = 1.1;     // linear drag coefficient so motion settles (lower = snappier)
+const TIME_RATE = 3.5;// run the settling this many x wall-clock, so the hull reaches
+                      // its new depth quickly when you change the density
+const RHO_WATER = 1;      // surface water density (reference)
+const RHO_GRADIENT = 0.6; // ocean layering on: density rises this much from surface to floor
 
 export default function BuoyancyTank({ compact = false }) {
   const wrapRef = useRef(null);
   const canvasRef = useRef(null);
-  const [density, setDensity] = useState(1.0);
+  const [density, setDensity] = useState(1.2);
   const densityRef = useRef(density);
   densityRef.current = density;
+  const [layered, setLayered] = useState(true);   // ocean density layering, default on
+  const layeredRef = useRef(layered);
+  layeredRef.current = layered;
 
   // live force readouts (buoyancy varies with how much of the hull is submerged)
   const [forces, setForces] = useState({ buoyancy: G, weight: G, net: 0 });
@@ -77,19 +85,25 @@ export default function BuoyancyTank({ compact = false }) {
       const rho = densityRef.current;
       const surf = surfaceY();
       const bot = bottomY();
+      const waterCol = bot - surf;
 
-      // Buoyancy follows the SUBMERGED fraction of the hull (Archimedes):
-      // fully under water it gets full buoyancy; riding the surface, only the
-      // submerged part counts, so a light hull self-levels at a submerged
-      // fraction equal to its density, and a neutral one hovers just submerged.
+      // Local water density. Uniform by default (Ch 13); with "ocean layering" on it
+      // rises with depth, rho_water(h) = RHO_WATER + gradient * (depth fraction). The
+      // buoyant force is still F = rho_water(h) * V_sub * g; letting rho depend on
+      // depth is exactly what gives a denser hull a neutral depth to hover at.
+      const centerDepthFrac = Math.min(1, Math.max(0, (objY - surf) / waterCol));
+      const rhoLocal = RHO_WATER + (layeredRef.current ? RHO_GRADIENT * centerDepthFrac : 0);
+
+      // Buoyancy follows the submerged fraction of the hull (Archimedes).
       const submerged = Math.min(1, Math.max(0, (objY + objH / 2 - surf) / objH));
-      const buoyancyNow = submerged * G;      // rho_water * V_submerged * g  (V = 1)
-      const weightNow = rho * G;              // rho_obj * V * g
-      const netUp = buoyancyNow - weightNow;  // + up, - down
-      const aUp = netUp / rho;                // divide by mass (= rho, V = 1)
+      const buoyancyNow = rhoLocal * submerged * G; // rho_water(h) * V_submerged * g
+      const weightNow = rho * G;                    // rho_obj * V * g
+      const netUp = buoyancyNow - weightNow;        // + up, - down
+      const aUp = netUp / rho;                      // divide by mass (= rho, V = 1)
 
-      objVy += (-aUp - DRAG * objVy) * dt;    // up is -y
-      objY += objVy * dt;
+      const pdt = dt * TIME_RATE;             // faster than wall-clock, for a snappy response
+      objVy += (-aUp - DRAG * objVy) * pdt;   // up is -y
+      objY += objVy * pdt;
 
       // stay inside the tank: rest on the floor, never leave the top
       const hardBottom = bot - objH / 2;
@@ -128,11 +142,34 @@ export default function BuoyancyTank({ compact = false }) {
       ctx.lineTo(W - padX, surf);
       ctx.stroke();
 
+      // ── ocean layering: faint density strata + the neutral-buoyancy depth ──
+      if (layeredRef.current) {
+        ctx.strokeStyle = 'rgba(120,170,235,0.16)';
+        ctx.lineWidth = 1;
+        for (let i = 1; i <= 4; i++) {
+          const yy = surf + waterCol * (i / 5);
+          ctx.beginPath(); ctx.moveTo(padX, yy); ctx.lineTo(W - padX, yy); ctx.stroke();
+        }
+        const nf = (rho - RHO_WATER) / RHO_GRADIENT;   // depth where rho_water(h) == rho_obj
+        if (nf > 0 && nf < 1) {
+          const ny = surf + waterCol * nf;
+          ctx.setLineDash([5, 5]);
+          ctx.strokeStyle = 'rgba(197,183,131,0.6)';
+          ctx.lineWidth = 1.2;
+          ctx.beginPath(); ctx.moveTo(padX, ny); ctx.lineTo(W - padX, ny); ctx.stroke();
+          ctx.setLineDash([]);
+          ctx.fillStyle = 'rgba(197,183,131,0.85)';
+          ctx.font = '10px JetBrains Mono, monospace';
+          ctx.textAlign = 'right';
+          ctx.fillText('neutral depth', W - padX - 5, ny - 4);
+        }
+      }
+
       // ── pressure-with-depth gauge on the left wall ─────────────────────
-      // Water density is taken as constant (Ch 13), but the pressure it exerts
-      // rises linearly with depth, P = P0 + rho*g*h. The wedge widens with depth
-      // to show that, and it is the greater pressure on the bottom of a body than
-      // on its top that produces the buoyant force.
+      // Pressure rises with depth, P = P0 + rho*g*h; the wedge widens with depth to
+      // show it. The greater pressure on the bottom of a body than on its top is what
+      // produces the buoyant force. (With ocean layering on, the water also grows
+      // denser with depth, which is what gives a heavy hull a depth to hover at.)
       const gaugeMax = 44;
       ctx.fillStyle = 'rgba(197,183,131,0.12)';
       ctx.beginPath();
@@ -259,9 +296,19 @@ export default function BuoyancyTank({ compact = false }) {
           onInput={(e) => setDensity(parseFloat(e.target.value))}
           aria-label="Object density as a fraction of water" className="w-full"
         />
+        <label className="flex items-center gap-2 mt-2 cursor-pointer text-sm text-usna-text select-none">
+          <input
+            type="checkbox" checked={layered}
+            onChange={(e) => setLayered(e.target.checked)}
+            className="w-4 h-4 accent-usna-gold"
+          />
+          Ocean density layering (rises with depth)
+        </label>
         {!compact && (
           <p className="text-usna-muted text-xs mt-2">
-            Match your density to the water and you hover, exactly how a submarine trims its ballast.
+            {layered
+              ? "Water thickens with depth, so a denser hull sinks only until the buoyancy climbs to match its weight, then hovers, like a submarine's trim."
+              : "With one uniform density, buoyancy is the same at every depth, so a denser hull sinks all the way to the floor."}
           </p>
         )}
       </div>

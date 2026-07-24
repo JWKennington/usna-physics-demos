@@ -30,12 +30,12 @@ vid () {
 }
 
 echo "Building Semester Preview media -> $OUT"
-# Act I-a: real carrier catapult launch, trimmed to the shot
-vid "File:F-18 taking off from Nimitz (Video).ogv"                                   "$OUT/fa18-catapult.mp4"           20 6  720 24
+# Unit I-a: military sniper team (bullet drop is projectile motion, wind is drag)
+vid "File:Sniper Platoon Conducts Sniper Gunnery KStuTUYUOkE.webm"                    "$OUT/sniper-marine.mp4"          12 12 720 24
 # Act I-b: Apollo 15 hammer & feather (keep the narration audio)
 vid "File:Apollo 15 feather and hammer drop.ogv"                                     "$OUT/apollo15-hammer-feather.mp4"  0 48 480 27 audio
-# Act II-a: carrier arrested landing, trimmed to the trap
-vid "File:X-47B Completes First Carrier-based Arrested Landing.ogv"                   "$OUT/x47b-arrested-landing.mp4"   19 16 720 24
+# Unit II-a: sea mine detonation (EOD / mine warfare, impulse and energy)
+vid "File:What a sea mine explosion looks like.webm"                                 "$OUT/eod-seamine.mp4"              0 10 720 24
 # Act II-b: gravity-assist flyby (NASA Lucy)
 vid "File:Lucy Earth Gravity Assist One- Animations (SVS20372 - Lucy EGA Shot6 2160p30).webm" "$OUT/lucy-gravity-assist.mp4" 2 16 720 24
 # Act III-a: spinning millisecond pulsar (NASA)
@@ -47,11 +47,11 @@ vid "File:230520-N-NQ285-2004 - USS Porter SM-2 launch Formidable Shield 2023.we
 # Act IV-b: binary black hole merger (NASA), trimmed to the inspiral + merger
 vid "File:Spinning binary black holes merging.webm"                                  "$OUT/bbh-merger.mp4"              33 16 720 24
 # Unit I-c: Blue Angels banking turn (US Navy) — circular motion / g-loading
-vid "File:Blue Angels US Navy 2025.webm"                                             "$OUT/blueangels-turn.mp4"        128 10 720 24
+vid "File:Blue Angels US Navy 2025.webm"                                             "$OUT/blueangels-turn.mp4"         85 10 720 24
 # Unit II-c: roller coaster — kinetic <-> potential energy
 vid "File:Roller coaster vertical loop.ogv"                                          "$OUT/coaster-energy.mp4"           0 11 640 24
-# Unit III-c: warship launch — buoyancy (a ship floats)
-vid "File:Launch of NUSHIP Stalwart at Ferrol Shipyard in Spain.webm"                "$OUT/ship-launch.mp4"              2 10 720 24
+# Unit III-c: Marine amphibious assault vehicles swimming ashore (buoyancy)
+vid "File:Amphibious Assault Vehicles.ogv"                                           "$OUT/aav-amphibious.mp4"         12 12 720 24
 # Unit IV-c: Tacoma Narrows oscillation and collapse, 1940
 vid "File:Tacoma Narrows Bridge destruction.ogv"                                     "$OUT/tacoma-oscillation.mp4"      98 20 480 24
 

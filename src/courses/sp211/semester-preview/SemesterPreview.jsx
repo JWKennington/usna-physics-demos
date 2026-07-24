@@ -202,15 +202,15 @@ const SLIDES = [
         title="Things that fly"
         demo={<ProjectileArc />}
         aside={<>
-          <Video src="fa18-catapult.mp4" ambient caption="F/A-18 catapult launch from a carrier (US Navy)" />
-          <Beat tag="Mission" community="Aviation">
-            The catapult accelerates an aircraft from 0 to <b>165&nbsp;kt in about 2&nbsp;s</b>, roughly <b>3&nbsp;g</b>,
-            and the arrested landing brings it back to rest just as fast. You will compute both accelerations in week 3.
+          <Video src="sniper-marine.mp4" ambient caption="A military sniper team engaging a distant target" />
+          <Beat tag="Mission" community="Marine Corps">
+            A Marine scout sniper puts this arc to work on every shot: the round starts falling the instant it
+            leaves the barrel, so the scope is set high to compensate, and the crosswind, which is drag on the
+            round, is dialed in to walk it back onto the target.
           </Beat>
-          <Beat tag="Application" community="Marine Corps">
-            Marine mortars and artillery are projectile motion, the same arc on screen. A gun crew sets the
-            charge and the elevation to land a round on a target it often cannot see, and a high-angle
-            trajectory can reach over terrain that a flat one would strike.
+          <Beat tag="Application" community="Aviation">
+            The same launch physics runs a carrier catapult, which accelerates an aircraft from 0 to
+            <b> 165&nbsp;kt in about 2&nbsp;s</b>, roughly <b>3&nbsp;g</b>. You will compute that in week 3.
           </Beat>
         </>}
         stat="Drag the launch angle. The dashed complementary angle always lands at the same range."
@@ -275,14 +275,14 @@ const SLIDES = [
         title="Collisions & impulse"
         demo={<CollisionCarts />}
         aside={<>
-          <Video src="x47b-arrested-landing.mp4" ambient caption="Carrier arrested landing, the trap (US Navy)" />
+          <Video src="eod-seamine.mp4" ambient caption="A sea mine detonating (naval mine warfare)" />
           <Beat tag="Mission">
-            The arresting gear stops a 25-ton jet at about 130&nbsp;kt in roughly <b>2&nbsp;s and 100&nbsp;m</b>.
-            That is impulse: a large momentum change delivered as a force over time.
+            A collision or a blast delivers its force in a flash. Impulse, a force applied over a short time, is
+            what changes momentum, whether two carts meet or a charge lets go.
           </Beat>
           <Beat tag="Application" community="EOD">
-            Explosive ordnance disposal works the same relationship in reverse, using a blast's impulse and
-            energy to set the standoff distances and procedures that make a device safe to approach.
+            Explosive ordnance disposal reads that in reverse, working from a blast's impulse and energy to the
+            standoff distances and procedures that make a device safe to approach.
           </Beat>
         </>}
         stat="Momentum is conserved in every collision. Kinetic energy is conserved only when it is perfectly elastic."
@@ -398,15 +398,16 @@ const SLIDES = [
         title="Float, sink, or hover"
         demo={<BuoyancyTank />}
         aside={<>
-          <Video src="ship-launch.mp4" ambient caption="A warship entering the water at launch (NUSHIP Stalwart)" />
+          <Video src="aav-amphibious.mp4" ambient caption="Marine amphibious assault vehicles swimming ashore (US Marine Corps)" />
           <Beat tag="Application">
-            A ship floats because it pushes aside its own weight in water. A submarine turns that into a
-            control: flood the ballast tanks to grow heavier and dive, blow them to rise, or trim to hover
-            neutrally at depth.
+            An armored amphibious vehicle floats and swims a rifle squad ashore because it pushes aside its own
+            weight in water, the same reason a ship floats. A submarine turns that into a control, changing its
+            average density with ballast to dive, hover, or surface.
           </Beat>
           <Beat tag="Idea">
-            The buoyant force equals the weight of the fluid displaced, Archimedes' result, and it decides
-            whether an object rises, sinks, or hangs in place.
+            In uniform water the buoyant force is the same at every depth, so a denser hull sinks all the way.
+            The real ocean grows denser with depth, so buoyancy climbs as the hull sinks until it matches the
+            weight and the hull hovers, the way a submarine trims. Toggle it on the demo.
           </Beat>
         </>}
         stat="Buoyant force equals the weight of displaced water. Match it to your own and you hover."
