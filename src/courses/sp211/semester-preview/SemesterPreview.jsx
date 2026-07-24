@@ -587,7 +587,7 @@ const SLIDES = [
         title="Oscillations"
         demo={<SpringSHM />}
         aside={<>
-          <Video src="oscillation-shiproll.mp4" ambient caption="A destroyer rolling through heavy seas (US Navy)" />
+          <Video src="oscillation-shiproll.mp4" ambient caption="USS Dewey working through heavy seas, from a carrier alongside (US Navy)" />
           <Beat tag="Application">
             A ship rolls about upright like a mass on a spring, with a natural period set by its stiffness and
             mass. Naval architects tune that period, and the dampers that bleed it, so a roll never builds.

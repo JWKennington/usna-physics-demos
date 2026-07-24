@@ -61,11 +61,12 @@ if command -v yt-dlp >/dev/null; then
 else
   echo "  SKIP submarine-breach.mp4 (needs yt-dlp: brew install yt-dlp)"
 fi
-# Unit IV-c: destroyer rolling in heavy seas (ship roll = mass on a spring, natural period).
-# US Navy "All Hands" footage (public domain), mirrored on YouTube; needs yt-dlp.
+# Unit IV-c: US Navy destroyer (USS Dewey, DDG-105) rolling in heavy seas, seen from a
+# carrier alongside (ship roll = mass on a spring, natural period). US Navy footage
+# (public domain), mirrored on YouTube; needs yt-dlp. SD-safe 3:2 source cropped to 16:9.
 if command -v yt-dlp >/dev/null; then
-  yt-dlp -q -f "bv*+ba/b" -o "$TMP/dest.%(ext)s" "https://www.youtube.com/watch?v=WfkSahalQGo"
-  ffmpeg -y -loglevel error -ss 0.5 -i "$TMP"/dest.* -t 9.5 -vf "scale=-2:720" \
+  yt-dlp -q -f "bv*+ba/b" -o "$TMP/dewey.%(ext)s" "https://www.youtube.com/watch?v=Zvzld04Q5XI"
+  ffmpeg -y -loglevel error -ss 17 -i "$TMP"/dewey.* -t 11 -vf "scale=1280:854,crop=1280:720" \
     -c:v libx264 -crf 23 -preset slow -pix_fmt yuv420p -an -movflags +faststart "$OUT/oscillation-shiproll.mp4"
   echo "  built oscillation-shiproll.mp4"
 else

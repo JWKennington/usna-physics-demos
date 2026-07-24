@@ -25,7 +25,7 @@ bash media-src/semester-preview/build-media.sh
 | I-c | `blueangels-turn.mp4` | Commons: *Blue Angels US Navy 2025* | US Navy, public domain | 128–138 s |
 | II-c | `slbm-launch.mp4` | Commons: *Trident II UGM-133A D5LE Missile from USS Wyoming, 2021* | US Navy, public domain | 14–26 s |
 | III-c | `submarine-breach.mp4` | YouTube mirror *USS Pittsburgh EMBT blow* (yt-dlp) | US Navy footage, public domain | 5.5–16.5 s |
-| IV-c | `oscillation-shiproll.mp4` | YouTube mirror *Heavy Seas: Life on a Destroyer* (All Hands, yt-dlp) | US Navy footage, public domain | 0.5–10 s |
+| IV-c | `oscillation-shiproll.mp4` | YouTube mirror *DDG-105 takes a nose-dive* (USS Dewey, yt-dlp) | US Navy footage, public domain | 17–28 s |
 | IV-b | `gw150914-chirp.wav` | [GWOSC](https://gwosc.org/audio/) GW150914 (H1, shifted) | LIGO/Virgo open data | as-is |
 
 All clips are H.264 MP4 (faststart), muted except Apollo. Everything is downloaded
