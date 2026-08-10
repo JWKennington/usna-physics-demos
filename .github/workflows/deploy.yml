@@ -31,6 +31,9 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
+        env:
+          # Optional: set a GA4 Measurement ID as an Actions repo variable to enable analytics.
+          VITE_GA_ID: ${{ vars.VITE_GA_ID }}
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
