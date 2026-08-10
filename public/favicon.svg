@@ -1,3 +1,4 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:a94abb3bded93863190bfdebcf87ab507517acaa16309c56a9bbce04d6fb84d6
-size 273
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <circle cx="16" cy="16" r="15" fill="#00205B" stroke="#C5B783" stroke-width="2"/>
+  <text x="16" y="22" text-anchor="middle" font-family="serif" font-weight="bold" font-size="18" fill="#C5B783">N</text>
+</svg>
