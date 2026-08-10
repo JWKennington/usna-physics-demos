@@ -80,6 +80,12 @@ _(All routes are under `/#/sp211/`.)_
 - [`PLAN_211_DEMOS.md`](PLAN_211_DEMOS.md) — program plan + per-demo specs + lesson→experiment map + build schedule.
 - [`DEMO_ENHANCEMENTS.md`](DEMO_ENHANCEMENTS.md) — the fix + enhancement backlog applied in pass 2 (per-demo checklist).
 
-## Not yet done
-- No git commit of this milestone.
-- GitHub Pages deploy workflow authored (`.github/workflows/deploy.yml`) but not yet run / Pages not enabled.
+## Deployment
+- **Live:** https://jwkennington.github.io/usna-physics-demos/ (GitHub Pages, public repo).
+- **CI:** `.github/workflows/deploy.yml` builds + deploys on every push to `main` (Pages source = GitHub Actions).
+- **Access gate:** a lightweight client-side password screen (`src/shell/PasswordGate.jsx`) — shared class password, hash-stored, remembered in localStorage. Not real security (static hosting), just keeps casual passers-by out.
+- **Analytics:** GA4 plumbing wired (`src/analytics.js`, env-driven). Inactive until a `VITE_GA_ID` Actions repo variable is set — see below.
+
+## Pending
+- Set `VITE_GA_ID` (GA4 Measurement ID) as an Actions repo variable to turn on analytics, then re-run the deploy.
+- Per-demo instructor review (0 / 22) — unchanged.
