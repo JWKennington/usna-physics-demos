@@ -15,7 +15,7 @@ bash media-src/semester-preview/build-media.sh
 | Act | Web file | Source | License | Trim |
 |---|---|---|---|---|
 | I-a | `sniper-marine.mp4` | Commons: *31st MEU, US Marines conduct aerial sniper training (B-Roll 8-8)* | US Marine Corps, PD | 3–15 s |
-| I-b | `apollo15-hammer-feather.mp4` | Commons: *Apollo 15 feather and hammer drop* | NASA, public domain | full (keeps audio) |
+| I-b | `apollo15-hammer-feather.mp4` | YouTube `KDp1tiUsZw8` — Apollo 15 hammer/feather drop | NASA, public domain | 57.5–62.5 s (the drop) |
 | II-a | `eod-seamine.mp4` | Commons: *What a sea mine explosion looks like* | CC (Wikimedia) | 0–10 s |
 | II-b | `lucy-gravity-assist.mp4` | Commons: *Lucy Earth Gravity Assist* (SVS20372) | NASA, public domain | 2–18 s |
 | III-a | `pulsar-spin.mp4` | Commons: *Millisecond pulsar and accretion disk* | NASA, public domain | 6–18 s |

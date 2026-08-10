@@ -251,14 +251,18 @@ function Beat({ tag, community, children }) {
   );
 }
 
-function Video({ src, caption, ambient = false }) {
+function Video({ src, caption, posY }) {
+  // Every clip plays on its own, loops, and is muted by default (the `ambient`
+  // prop some call sites still pass is now the universal behavior and is ignored).
+  // `posY` biases the object-cover crop vertically (e.g. '80%' keeps the bottom of
+  // a tall clip in frame) so a landing/finish isn't trimmed off.
   return (
     <figure className="flex flex-col gap-1 min-h-0">
       <video
         src={`${MEDIA}${src}`}
         className="w-full rounded-lg bg-black object-cover flex-1 min-h-0"
-        controls playsInline preload="metadata"
-        {...(ambient ? { autoPlay: true, muted: true, loop: true } : {})}
+        style={posY ? { objectPosition: `50% ${posY}` } : undefined}
+        autoPlay muted loop playsInline controls preload="auto"
       />
       {caption && <figcaption className="text-xs" style={{ color: MUTED }}>{caption}</figcaption>}
     </figure>
@@ -338,7 +342,7 @@ const SLIDES = [
         title="…and how they fall"
         demo={<AirVacuumDrop />}
         aside={<>
-          <Video src="apollo15-hammer-feather.mp4" caption="Apollo 15: hammer and feather on the Moon (NASA)" />
+          <Video src="apollo15-hammer-feather.mp4" posY="82%" caption="Apollo 15: hammer and feather on the Moon (NASA)" />
           <Beat tag="Frontier · the Moon">
             Hammer and feather, released together, land together. With no air, everything falls at the same
             rate: the vacuum approximation we rely on all semester, made real.

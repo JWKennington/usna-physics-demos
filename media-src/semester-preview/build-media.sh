@@ -32,8 +32,17 @@ vid () {
 echo "Building Semester Preview media -> $OUT"
 # Unit I-a: US Marine sniper, 31st MEU (bullet drop is projectile motion, wind is drag)
 vid "File:31st MEU - U S Marines conduct aerial sniper training - B-Roll 8-8 (1011621).webm" "$OUT/sniper-marine.mp4"   3 12 720 24
-# Act I-b: Apollo 15 hammer & feather (keep the narration audio)
-vid "File:Apollo 15 feather and hammer drop.ogv"                                     "$OUT/apollo15-hammer-feather.mp4"  0 48 480 27 audio
+# Act I-b: Apollo 15 hammer & feather — the actual drop (0:58–1:02), muted loop.
+# NASA Apollo 15 footage (public domain); this YouTube transfer is clearer than the
+# Commons OGV. Needs yt-dlp (brew install yt-dlp).
+if command -v yt-dlp >/dev/null; then
+  yt-dlp -q -f "bv*[height<=720]+ba/b[height<=720]/b" -o "$TMP/apollo.%(ext)s" "https://www.youtube.com/watch?v=KDp1tiUsZw8"
+  ffmpeg -y -loglevel error -ss 57.5 -t 5 -i "$TMP"/apollo.* -vf "scale=-2:480" \
+    -c:v libx264 -crf 24 -preset slow -pix_fmt yuv420p -an -movflags +faststart "$OUT/apollo15-hammer-feather.mp4"
+  echo "  built apollo15-hammer-feather.mp4"
+else
+  echo "  SKIP apollo15-hammer-feather.mp4 (needs yt-dlp: brew install yt-dlp)"
+fi
 # Unit II-a: sea mine detonation (EOD / mine warfare, impulse and energy)
 vid "File:What a sea mine explosion looks like.webm"                                 "$OUT/eod-seamine.mp4"              0 10 720 24
 # Act II-b: gravity-assist flyby (NASA Lucy)
